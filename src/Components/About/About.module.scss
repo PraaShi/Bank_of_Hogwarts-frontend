@@ -1,0 +1,22 @@
+.container{
+    width:80%;
+    display: flex;
+    height:100%;
+    align-items: center;
+    // background-color: antiquewhite;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: poppins;
+    text-align: justify;
+    line-height: 27px;
+    padding:10vh 0;
+    span:nth-child(1){
+        font-weight: 800;
+        font-size: 25px;
+    }
+}
+
+.topic{
+    font-weight: 700;
+}

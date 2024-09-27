@@ -1,0 +1,74 @@
+@font-face {
+  font-family: Longway;
+  src: url(/Fonts/Longway-Regular.otf);
+}
+
+@font-face {
+  font-family:'Poppins';
+  src: url(/Fonts/PoppinsLatin-Light.ttf);
+}
+
+@font-face {
+  font-family:Revans;
+  src: url(/Fonts/Revans.ttf);
+
+}
+
+:root {
+  --dark-green: #013513;
+  --light-green: #d3fa53;
+  --grey: #cdd6d5;
+}
+
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  // overflow-x: hidden;
+}
+
+@keyframes infiniteScroll {
+  from {transform: translateX(0) }
+  to {transform: translateX(calc(0px - 50%));}
+}
+
+.react-datepicker{
+  width: 100% !important;
+}
+
+.react-datepicker-wrapper{
+  width: 100% !important;
+}
+.react-datepicker__input-container input {
+  background-color: #EDF2F7;
+  width: 100% !important;
+  // position: absolute !important;
+  // inset: 0;
+  
+}
+.react-datepicker-popper {
+  z-index: 2000 !important; 
+}
+
+
+.react-datepicker__day--selected {
+  background-color: var(--dark-green) !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: var(--dark-green) !important;
+}
+
+* {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+  scroll-behavior: smooth; 
+ } 
+*::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+

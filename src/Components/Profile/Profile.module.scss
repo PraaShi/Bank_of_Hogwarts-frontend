@@ -1,0 +1,66 @@
+.container{
+    // background-color: #D3FA53;
+    // background-color: rgb(225, 228, 223);
+    background-color: #f4faf4;
+    height:100%;
+    position:relative;
+    border-radius: 30px;
+    font-family: poppins;
+    font-weight: 500;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.female{
+    width:100%;
+    height:20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileicon{
+    width:125px;
+}
+
+.icon{
+    width:20px;
+}
+
+.tags{
+    width:100%;
+    height:80%;
+    padding: 2vh 0.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tag{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:1rem;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 6;
+    width:100%;
+    height:10%;
+    font-size:15px;
+    padding-left:10px;
+}
+
+.tagemail{
+    div{
+        max-width: 220px;
+    }
+}
+
+.edit{
+    background-color: #103513 !important;
+    color:white !important;
+    width:70%;
+    margin:0 auto;
+}
+

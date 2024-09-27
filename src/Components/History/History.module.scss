@@ -1,0 +1,38 @@
+.container{
+    height:50%;
+    border-radius: 30px;
+    font-family: poppins;
+    font-weight: 500;
+    background-color: #FEFFFE;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.filter{
+    // padding:2vh 1.5vw;
+    // margin-bottom: 2vh;
+    margin-top: 1vh;
+    height:20%;
+}
+
+.history{
+    // background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.moreBtn{
+    background-color: var(--dark-green) !important;
+    color:white !important;
+    transform: scale(80%) ;
+}
+
+.table{
+    transform:scale(100%);
+}
+
+.more{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

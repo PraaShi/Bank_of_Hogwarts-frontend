@@ -1,0 +1,222 @@
+.container{
+    padding:2vh 8vw;
+    width:100%;
+    height:93vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2vh;
+    font-family: Revans;
+
+    >input{
+        background-color:#279b27;
+    }
+}
+
+.filter{
+    width:100%;
+    height:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:12vw;
+
+    border-radius: 30px;
+    font-family: poppins;
+    font-weight: 500;
+    background-color: #f4faf4;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.form{
+    width:20%;
+}
+
+.innerContainer{
+    width:100%;
+    height:90%;
+    display: flex;
+    gap:3vw;
+    // background-color: aquamarine;
+}
+
+.beneficiary{
+    background-color: #f4faf4;
+    height:100%;
+    position:relative;
+    border-radius: 30px;
+    width:30%;
+    font-family: poppins;
+    font-weight: 500;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    padding:2vh 1vw;
+    font-family: Revans;
+    color:var(--dark-green);
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.beneficiaryHeader{
+    display: flex;
+    flex-direction: column;
+    height:15%;
+    justify-content: space-around;
+    >h2{
+        width:100%;
+        height:37%;
+        text-align: center;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        gap:1vw;
+        >button{
+            width:30px;
+            height:30px;
+            background-color: var(--dark-green);
+            >img{
+                // width:500px;
+                transform: scale(200%);
+
+            }
+        }
+    }
+
+    >div:nth-child(2){
+        background-color: var(--grey);
+        height:1px;
+        background: rgb(239,239,239);background: radial-gradient(circle, rgba(239,239,239,1) 0%, rgba(141,140,142,1) 0%, rgba(239,239,239,1) 100%);
+        margin: 0 1vw;
+        margin-bottom: 12px;
+    }
+    
+    >input{
+        width:80%;
+        margin:0 auto;
+    }
+}
+
+.membersContainer{
+    width:100%;
+    height:85%;
+    overflow-y: scroll;
+
+}
+.members{
+    display: flex;
+    flex-direction: column;
+    padding:2vh 0;
+    gap:2.5vh;
+    width:100%;
+
+
+    >div{
+        display: flex;
+        align-items: center;
+        width:80%;
+        margin:0 auto;
+        gap:1vw;
+    }
+}
+
+.even{
+    background-color: var(--dark-green) !important;
+    color: white !important;
+}
+.odd{
+    background-color: var(--light-green) !important;
+    color: white !important;
+}
+
+.selectField{
+    width:100%;
+}
+
+.transaction{
+    width:70%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    >div:nth-child(1){
+        display: flex;
+        flex: 1;
+        gap:20px;
+
+    }
+    >div:nth-child(2){
+        flex: 1;
+        display: flex;
+    }
+}
+
+// .withdraw{
+//     width:50%;
+//     height:100%;
+//     flex:1;
+// }
+
+// .deposit{
+//     width:50%;
+//     height:100%;
+//     flex:1;
+// }
+
+// .transfer{
+//     width:100%;
+//     height:100%;
+//     flex:1;
+// }
+
+
+//
+.tab{
+    width:100%;
+    height:100%;
+}
+
+.tabPanels{
+    width:100%;
+    height:70%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.tabPanel{
+    width:100%;
+    height:100%;
+}
+
+.transaction{
+    width:100%;
+}
+
+.withdraw{
+    margin:10vh auto;
+    width:80%;
+    height:90%;
+}
+
+.deposite{
+    margin:10vh auto;
+    width:80%;
+    height:90%;
+}
+
+.transfer{
+    margin:10vh auto;
+    width:80%;
+    height:90%;
+}
+
+.history{
+    margin:0 auto;
+    width:80%;
+    height:90%;
+}
+
+
+
+
+

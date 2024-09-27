@@ -1,0 +1,31 @@
+.container{
+    // background-color: #D3FA53;
+    // background-color: rgb(225, 228, 223);
+    background-color: #f4faf4;
+    height:100%;
+    position:relative;
+    border-radius: 30px;
+    font-family: poppins;
+    font-weight: 500;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p{
+        font-size: 18px;
+        font-family: Revans;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    >button{
+        background-color: #173B1A;
+        color: white;
+        font-size: 13px;
+        width:40%;
+        transform: scale(85%);
+        margin:0 auto;
+        letter-spacing: 1px;
+    }
+}

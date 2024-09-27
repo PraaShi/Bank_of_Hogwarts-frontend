@@ -1,0 +1,52 @@
+.form {
+  display: flex;
+  width: 100%;
+  gap: 2vw;
+}
+
+.datePicker {
+  // background-color: #EDF2F7 !important;
+  cursor: pointer;
+  position: relative;
+  font-size: 13px;
+  width: 100% !important;
+  // background-color: red;
+  transform:scale(80%);
+  padding: 0 !important;
+  > p {
+    position: absolute;
+    top: 10px;
+    // inset: 0;
+    left: 10%;
+    z-index: 5;
+  }
+
+  img {
+    left: 2% !important;
+    position: absolute;
+    width: 20px;
+    top: 10px;
+    z-index: 5;
+  }
+
+  input {
+    // position: absolute;
+    font-size: 14px;
+    padding-left: 90px !important;
+    inset: 0;
+    border-color: #718096 !important;
+    background-color: #EFEFEF !important;
+    &:focus{
+        border-color: #718096 !important; 
+    }
+  }
+}
+
+.inputField{
+    transform:scale(80%);
+}
+
+
+.selectField{
+  z-index:4;
+}

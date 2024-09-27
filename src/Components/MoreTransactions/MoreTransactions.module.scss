@@ -1,0 +1,15 @@
+.container{
+    width:60vw !important;
+    display: none;
+    font-family: poppins;
+
+    h2{
+        width:100%;
+        text-align: center;
+        margin-bottom: 2vh;   
+    }
+}
+
+.scroll{
+    overflow-y: auto;
+}

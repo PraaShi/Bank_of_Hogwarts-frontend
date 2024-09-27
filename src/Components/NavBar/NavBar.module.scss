@@ -1,0 +1,46 @@
+.container{
+    height:100%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    >div:nth-of-type(1){
+        width:25%;
+        color:#173B1A;
+        font-weight: 900;
+        font-family: Longway;
+        font-size: 22px;
+    }
+    padding:2vh 4vw;
+}
+
+.options{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    // background-color: aliceblue;
+    width:45%;
+    height:100%;
+    font-family: Revans;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn{
+    width:30%;
+    display:flex;
+    justify-content: flex-end;
+    gap:3vw;
+    button:nth-child(1){
+        border-color:#173B1A !important ;
+        font-size: 12px  !important ;
+
+        &:hover{
+            background-color:#86b98a  !important ;
+        }
+    }
+    button:nth-child(2){
+        background-color:#173B1A !important ;
+        font-size: 12px  !important ;
+        color:white !important; 
+    }
+}

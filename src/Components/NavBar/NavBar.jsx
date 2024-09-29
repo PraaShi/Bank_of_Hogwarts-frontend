@@ -7,6 +7,7 @@ import { AuthDataProvider } from '../../Layouts/HomeLayout/HomeLayout';
 function NavBar() {
     const authData= useContext(AuthDataProvider);
     const options = [{link:'/about',name:"ABOUT US"},{link:'/transactions',name:"TRANSACTIONS"},{link:'/loan',name:"LOAN"},{link:'/myprofile',name:"MY PROFILE"}]
+
   const navigate = useNavigate()
     const logOut = (e) => {
         localStorage.removeItem("jwtToken"); 

@@ -1,6 +1,10 @@
 .container {
   width: 100%;
-  height: 100vh;
+  height: 93vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: rgb(255, 255, 255);
   background: linear-gradient(
     0deg,
@@ -8,10 +12,11 @@
     rgba(139, 184, 125, 1) 100%
   );
   position: relative;
+  font-family: Ravens;
 }
 
-.dash{
-    position:absolute;
+.dash {
+  position: absolute;
 }
 .home {
   display: flex;
@@ -30,6 +35,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
+    transform: scale(130%);
     > h2 {
       font-size: 37px;
       font-weight: 700;
@@ -55,7 +61,98 @@
   }
 }
 
-.details{
-    height:100h;
-    width:100vh;
+.details {
+  width: 100%;
+  margin-bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap:12vh;
+  > div {
+    width: 70%;
+    height: 45vh;
+    margin: 0 auto;
+    padding: 2vh 4vw;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+// gap: 1vh;    
+    
+  }
+}
+
+.header{
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  >div{
+    >h2 {
+      font-size: 26px;
+      font-weight: 600;
+    }
+    >p{
+      margin-bottom: 3vh;
+    }
+  }
+
+  >div:nth-child(2){
+    >button{
+      background-color: var(--dark-green);
+      color:white;
+    }
+  }
+}
+
+.loanDesc {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 80%;
+  // background-color: aqua;
+  
+  >div:nth-of-type(2n + 1){
+    >div {
+    background-color: #F5E7DA;
+  }}
+  >div:nth-of-type(2){
+    div{
+    background-color: rgba(0, 0, 0, 0.486);
+  }}
+  // >div:nth-of-type(3){
+  //   background-color: #F5E7DA;
+  // }
+  >div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vh;
+    >p{
+      font-size: 22px;
+    }
+  > div {
+    width:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  width: 200px;
+  height: 200px;
+    border-radius: 15px;
+    > img {
+      width:50%;
+      height: 50%;
+    }
+  }
+}
+}
+
+.loanContent{
+  display: flex;
+  justify-content: space-between;
+  padding:0 4vw;
+  font-size: 20px;
+  font-weight: 500;
 }

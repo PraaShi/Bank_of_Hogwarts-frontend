@@ -23,7 +23,7 @@ function AccountDetails() {
   const [branch, setBranch] = useState([]);
   const {accountDetails,setAccountDetails} = useContext(AccountDataProvider);
   
-  const allAccounts = useContext(AllAccountProvider)
+  const {allAccounts} = useContext(AllAccountProvider)
   
   const handleTabsChange = (index) => {
     setActiveTabIndex(index);

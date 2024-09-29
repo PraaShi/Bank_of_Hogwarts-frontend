@@ -17,10 +17,8 @@ function MyProfile() {
 
   const authData = useContext(AuthDataProvider);
 
-  
-
   const navigate = useNavigate()
-
+  
 
   return (
     <div className={styles.container}>

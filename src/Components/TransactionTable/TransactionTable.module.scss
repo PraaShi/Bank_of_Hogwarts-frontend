@@ -1,5 +1,11 @@
+@import '../../App.scss';
+
 .table{
     margin-top: 1.5vh;
+   @include small-break{
+    margin-top: 13vh;
+    overflow-y: auto;
+   }
 }
 
 .credit{

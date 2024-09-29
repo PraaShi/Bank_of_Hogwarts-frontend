@@ -1,3 +1,6 @@
+@import '../../App.scss';
+
+
 .container{
     width:100%;
     height:60%;
@@ -6,6 +9,16 @@
     font-weight: 500;
     background-color: #FEFFFE;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    @include large-break{
+        width:80vw;
+        margin:0 auto;
+    }
+
+    @include small-break{
+        height:120vh;
+        flex-direction: column;
+    }
 }
 
 .tablist{
@@ -50,7 +63,11 @@
     width:100%;
     height:30vh;
     padding:0 0.5vw !important;
-    
+    @include small-break{
+        height:100%;
+        flex-direction: column;
+        gap:2vh;
+    }
 }
 
 .mainDetails{
@@ -62,6 +79,12 @@
     padding:3vh 1.5vw;
     border-bottom: 2px solid var(--grey);
     background-color: #f4faf4;
+
+    @include small-break{
+        height:100%;
+        flex-direction: column;
+        gap:2vh;
+    }
 }
 
 .addedDetails{
@@ -71,6 +94,12 @@
     display: flex;
     justify-content: space-between;
     padding:2vh 4vw;
+
+    @include small-break{
+        height:100%;
+        flex-direction: column;
+        gap:2vh;
+    }
 }
 
 .balance{
@@ -87,6 +116,10 @@
         img{
             width:28px;
         }
+    }
+
+    @include small-break{
+        margin:auto;
     }
 }
 

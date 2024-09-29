@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .container {
   padding: 2vh 1.5vw;
   height: 93vh;
@@ -5,11 +7,27 @@
   display: flex;
   gap: 1.5vw;
   background-color: #e8eeec;
+
+  @include large-break{
+    flex-direction: column;
+    height:270vh;
+  }
+  @include small-break{
+    flex-direction: column;
+    height:350vh;
+  }
 }
 
 .profile {
   width: 20%;
   border-radius: 50px;
+
+  @include large-break{
+    width:80%;
+    margin:auto;
+    margin-top: 5vh;
+  }
+
 }
 
 .transaction {
@@ -17,6 +35,16 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+
+  @include large-break{
+    width:90%;
+    margin:auto;
+    // background-color: aqua;
+    margin-top: 5vh;
+    gap:8vh;
+  }
+
 }
 
 .add {
@@ -24,6 +52,15 @@
   display: flex;
   flex-direction: column;
   gap: 2vh;
+
+  @include large-break{
+    width:80%;
+    height:40%;
+    margin:auto;
+    // background-color: aqua;
+    margin-top: 5vh;
+    gap:8vh;
+  }
 
   > div:nth-child(2) {
     height: 30vh;
@@ -52,3 +89,4 @@
 .appear{
   transition: none !important;
 }
+

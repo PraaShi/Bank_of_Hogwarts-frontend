@@ -2,7 +2,7 @@ import styles from "./BeneficiaryForm.module.scss";
 import { Formik, Form } from "formik";
 import { BeneficiaryValidation } from "../../Lib/Validator";
 import FormikControl from "../../Forms/Formik/FormikControl";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -14,6 +14,8 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import Filters from "../Filters/Filters";
+import axios from "axios";
+import { AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 
 function BeneficiaryForm({ isOpen, onOpen, onClose ,onSubmit}) {
   const OverlayOne = () => (
@@ -23,12 +25,46 @@ function BeneficiaryForm({ isOpen, onOpen, onClose ,onSubmit}) {
     />
   );
   const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [branches, setBranches] = useState([]);
+  const [branchOptions, setBranchOptions] = useState([]);
+  const authData = useContext(AuthDataProvider);
 
 const initialValues={
   accountName:'',
   accountNumber:'',
-  branch:''
+  branch:null
 }
+useEffect(() => {
+  if (authData?.customerId) {
+    const url = `https://localhost:7135/api/branch/allBranch`;
+    console.log(url);
+    axios
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${authData?.token}`,
+        },
+      })
+      .then((result) => {
+        setBranches(result.data.$values);
+        console.log(result.data, "branchesss");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {});
+  }
+}, [authData]);
+
+useEffect(() => {
+  const options = branches.map((branchData) => {
+    return {
+      label: branchData.branchName,
+      value: Number(branchData.branchId),
+    };
+  });
+  setBranchOptions(options);
+  console.log(options);
+}, [branches]);
 
   return (
     <>
@@ -65,11 +101,11 @@ const initialValues={
                   focusBorderColor="gray.400"
                 />
                 <FormikControl
-                  control="input"
+                  control="select"
                   name="branch"
                   placeholder="Branch"
-                  type="text"
                   variant="filled"
+                  dropDownOptions={branchOptions}
                   fieldStyle={styles.inputField}
                   focusBorderColor="gray.400"
                 />

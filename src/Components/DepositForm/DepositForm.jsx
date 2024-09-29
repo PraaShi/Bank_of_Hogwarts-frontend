@@ -1,54 +1,102 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./DepositForm.module.scss";
-import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, useToast } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { DepositValidation } from "../../Lib/Validator";
 import FormikControl from "../../Forms/Formik/FormikControl";
+import axios from "axios";
+import { use } from "framer-motion/client";
+import { AllAccountProvider } from "../../Layouts/HomeLayout/HomeLayout";
 
-function DepositForm() {
-    const initialValues = {
-        amount: "",
-        pin: ""
-      };
-    
-      const onSubmit = (values) => {
-        console.log(values);
-      };
+export function DepositForm({ accStatus, selectedAcc }) {
+  console.log("wiithdraw", selectedAcc);
+  const {setUpdateAccounts} = useContext(AllAccountProvider);
+
+  const toast = useToast();
+  const navigate = useNavigate();
+  const initialValues = {
+    amount: "",
+    pin: "",
+  };
+
+  // useEffect(() => {
+  //   accStatus === "Active" ? setDisabled(false) : setDisabled(true);
+  // });
+  const onSubmit = (values) => {
+    const data = {
+      accountId: Number(selectedAcc.accountId),
+      amount: Number(values.amount),
+      pin: values.pin.toString(),
+    };
+    console.log(data);
+    const url = `https://localhost:7135/api/accountActions/${selectedAcc.accountId}/depositFunds`;
+    console.log(url);
+    axios
+      .post(url, data)
+      .then((result) => {
+        console.log(result);
+
+        toast({
+          title: "Withdraw Successful",
+          // description: "Kindly login to continue.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setUpdateAccounts(prev => prev + 1)
+        navigate("/myprofile");
+      })
+      .catch((error) => {
+        console.log(error);
+
+        toast({
+          title: "deposit Unsuccessful",
+          description: "Try after a while.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
   return (
     <div className={styles.container}>
-        <h2>Deposit Money</h2>
+      <h2>Deposit Money</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={DepositValidation}
         onSubmit={onSubmit}
       >
-        <Form className={styles.form}>
-        <FormikControl
-            control="input"
-            name="amount"
-            placeholder="Amount"
-            type="text"
-            variant="filled"
-            fieldStyle={styles.inputField}
-            focusBorderColor="gray.400"
-          />
-          <FormikControl
-            control="input"
-            name="pin"
-            placeholder="PIN"
-            type="text"
-            variant="filled"
-            fieldStyle={styles.inputField}
-            focusBorderColor="gray.400"
-          />
-          <Button type="submit" className={styles.loginbtn}>
-            Apply
-          </Button>
-        </Form>
+        {({ values }) => {
+          return (
+            <Form className={styles.form}>
+              <FormikControl
+                control="input"
+                name="amount"
+                placeholder="Amount"
+                type="number"
+                variant="filled"
+                fieldStyle={styles.inputField}
+                focusBorderColor="gray.400"
+              />
+              <FormikControl
+                control="input"
+                name="pin"
+                placeholder="PIN"
+                type="password"
+                variant="filled"
+                fieldStyle={styles.inputField}
+                focusBorderColor="gray.400"
+              />
+              <Button type="submit" className={styles.btn} isDisabled={false}>
+                Deposit
+              </Button>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
-  )
+  );
 }
 
-export default DepositForm
+export default DepositForm;

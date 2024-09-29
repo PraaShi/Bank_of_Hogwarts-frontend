@@ -56,16 +56,7 @@ export const EmployeeRegistorValidation = Yup.object({
   position: Yup.string().required("Date of Birth is required"),
 });
 
-export const AccountRegistorValidation = Yup.object({
-  pin: Yup.string()
-    .min(4, "Must be 4 digit")
-    .max(4, "Must be 4 digit")
-    .required("PIN required"),
-  customer: Yup.string().required("Please enter the password"),
-  accounType: Yup.string().required("Please enter the phone number"),
-  branch: Yup.string().required("Date of Birth is required"),
-  balance: Yup.string().required("Date of Birth is required"),
-});
+
 
 export const FilterValidation = Yup.object({
   startDate: Yup.date()
@@ -98,33 +89,29 @@ export const RequestDeactivationValidation = Yup.object({
 //Apply Loan
 
 export const ApplyLoanValidation = Yup.object({
-  loanType: Yup.string().required("Required"),
+  accountId : Yup.number().required(),
 
-  purpose: Yup.string().required("Required")
+  purpose: Yup.string().required("Required").min(20,"Description length too short").max(200,"Exceeding the limit")
 });
 
 export const DepositValidation = Yup.object({
-  accountNumber: Yup.string().required("Required"),
 
-  amount: Yup.string().required("Required"),
+  amount: Yup.number().required("Required"),
 
   pin: Yup.string().required("Required").matches(/^[0-9]{4}$/,"Incorrect Pin")
 });
 
 export const WithdrawValidation = Yup.object({
-  accountNumber: Yup.string().required("Required"),
-
-  amount: Yup.string().required("Required"),
+  amount: Yup.number().required("Required"),
 
   pin: Yup.string().required("Required").matches(/^[0-9]{4}$/,"Incorrect Pin")
 });
 
 export const TransferValidation = Yup.object({
-  accountNumber: Yup.string().required("Required"),
 
-  beneficiary:Yup.string().required("Required"),
+  beneficiary:Yup.number().required("Choose a beneficiary please"),
 
-  amount: Yup.string().required("Required"),
+  amount: Yup.number().required("Required"),
 
   pin: Yup.string().required("Required").matches(/^[0-9]{4}$/,"Incorrect Pin")
 });
@@ -134,8 +121,18 @@ export const BeneficiaryValidation = Yup.object({
 
   accountNumber: Yup.string().required("Required"),
 
-  branch: Yup.string().required("Required"),  
+  branch: Yup.number().required("Required"),  
 });
+
+export const AccountRegisterValidation = Yup.object({
+  newPin: Yup.string().required("Required").matches(/^[0-9]{4}$/,"Incorrect Pin"),
+  confirmPin: Yup.string().required("Required").oneOf([Yup.ref("newPin"), null], "Passwords must match"),
+  accountType: Yup.number().required(),
+  branchId: Yup.number().required(),
+
+})
+
+
 
 
 

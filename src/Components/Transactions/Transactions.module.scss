@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .container{
     padding:2vh 8vw;
     width:100%;
@@ -9,7 +11,13 @@
     font-family: Revans;
 
     >input{
-        background-color:#279b27;
+        // background-color:#279b27;
+    }
+    @include mid-break{
+        height:220vh;
+    }
+    @include small-break{
+        height:200vh;
     }
 }
 
@@ -26,10 +34,23 @@
     font-weight: 500;
     background-color: #f4faf4;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    @include small-break{
+        flex-direction: column;
+        width:100%;
+        height:20%;
+    }
 }
 
 .form{
     width:20%;
+
+    @include xlarge-break{
+        font-size: 12px;
+    }
+    @include small-break{
+        width:80%;
+    }
 }
 
 .innerContainer{
@@ -37,6 +58,13 @@
     height:90%;
     display: flex;
     gap:3vw;
+    @include mid-break{
+        flex-direction: column;
+    }
+    @include small-break{
+        // background-color: #279b27;
+        height:180vh;
+    }
     // background-color: aquamarine;
 }
 
@@ -55,6 +83,14 @@
     letter-spacing: 0.5px;
     display: flex;
     flex-direction: column;
+
+    @include mid-break{
+        width:90%;
+        margin:auto;
+    }
+    @include small-break{
+        width:100%;
+    }
 }
 
 .beneficiaryHeader{
@@ -173,11 +209,19 @@
 .tab{
     width:100%;
     height:100%;
+    @include small-break{
+        margin-top: 2vh;
+    }
+}
+
+.tablist{
+    width:100%;
+    display: flex !important;
 }
 
 .tabPanels{
     width:100%;
-    height:70%;
+    height:90%;
     display: flex;
     flex-direction: column;
     gap:20px;
@@ -185,35 +229,91 @@
 
 .tabPanel{
     width:100%;
-    height:100%;
+    height:80%;
+
 }
 
 .transaction{
     width:100%;
+    height:50%;
+    @include mid-break{
+        height:50%;
+    }
+    @include small-break{
+        height:100%;
+    }
 }
 
 .withdraw{
     margin:10vh auto;
     width:80%;
     height:90%;
+    @include xlarge-break{
+        width:100%;
+    }
+    @include mid-break{
+        height:100%;
+    }
+    @include small-break{
+        width:100%;
+        height:80%;
+        margin:5vh auto;
+    }
 }
 
 .deposite{
     margin:10vh auto;
     width:80%;
     height:90%;
+    @include xlarge-break{
+        width:100%;
+    }
+    @include mid-break{
+        height:100%;
+    }
+    @include small-break{
+        width:100%;
+        height:80%;
+        margin:5vh auto;
+    }
 }
 
 .transfer{
     margin:10vh auto;
     width:80%;
     height:90%;
+    @include xlarge-break{
+        width:100%;
+    }
+    @include mid-break{
+        height:100%;
+    }
+    @include small-break{
+        width:100%;
+        height:90%;
+        margin:5vh auto;
+    }
 }
 
 .history{
     margin:0 auto;
     width:80%;
-    height:90%;
+    height:100%;
+    // overflow-y: auto;
+    // background-color: blue;
+    >div:nth-child(2){
+        height:100%;
+        overflow-y: auto;
+    }
+    @include xlarge-break{
+        width:100%;
+    }
+    @include mid-break{
+        height:100%;
+    }
+    @include small-break{
+        width:100%;
+    }
 }
 
 

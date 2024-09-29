@@ -15,11 +15,11 @@ import { useState, createContext, useContext } from "react";
 import { DetailContext } from "../History/History";
 import { AccountDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 
-function TransactionTable({sliceValue}) {
-  const detail = useContext(DetailContext);
+function TransactionTable({sliceValue, transactionDetail}) {
+  const detail = useContext(DetailContext) || transactionDetail;
   const {accountDetails} = useContext(AccountDataProvider)
   const slice  = sliceValue ? sliceValue : detail.length;
-  console.log(detail)
+  console.log(detail, 'transaction table')
   return (
     <TableContainer className={styles.table}>
       <Table variant="simple">

@@ -1,77 +1,94 @@
-import React from "react";
 import styles from "./ApplyLoan.module.scss";
-import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import { ApplyLoanValidation } from "../../Lib/Validator";
+import { ApplyLoanValidation} from "../../Lib/Validator";
 import FormikControl from "../../Forms/Formik/FormikControl";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
+import axios from "axios";
+import { AllAccountProvider, AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 
-function ApplyLoan() {
-  const initialValues = {
-    loanType: "",
-    purpose: "",
-  };
+function ApplyLoan({ isOpen, onOpen, onClose ,onSubmit, activeAccounts}) {
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const [branches, setBranches] = useState([]);
+  const [branchOptions, setBranchOptions] = useState([]);
+  const authData = useContext(AuthDataProvider);
+const [accountOptions, setAccountOptions] = useState([])
 
-  const onSubmit = (values) => {
-    console.log(values);
-  };
+const initialValues={
+  purpose:'',
+  accountId:null,
+}
+console.log('aplyyy',activeAccounts)
 
-  const dropDownOptions = [
-    {
-      label: "Home",
-      value: "home",
-    },
-    {
-      label: "Personal",
-      value: "personal",
-    },
-    {
-      label: "Business",
-      value: "business",
-    },
-    {
-      label: "Education",
-      value: "education",
-    },
-    {
-      label: "Car",
-      value: "car",
-    },
-  ];
+useEffect(() => {
+  const options = activeAccounts?.map((acc) => {
+    return { label: acc.accountNumber, value: Number(acc.accountId)}
+  });
+  setAccountOptions(options)
+  console.log(accountOptions,'this')
+},[activeAccounts])
+
+
 
   return (
-    <div className={styles.container}>
-      <h2>Apply Loan</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={ApplyLoanValidation}
-        onSubmit={onSubmit}
-      >
-        <Form className={styles.form}>
-          <FormikControl
-            control="select"
-            name="loanType"
-            placeholder="Loan Type"
-            dropDownOptions={dropDownOptions}
-            variant="filled"
-            fieldStyle={styles.inputField}
-            focusBorderColor="gray.400"
-          />
-          <FormikControl
-            control="input"
-            name="purpose"
-            placeholder="Purpose"
-            type="text"
-            variant="filled"
-            fieldStyle={styles.inputField}
-            focusBorderColor="gray.400"
-          />
-          <Button type="submit" className={styles.loginbtn}>
-            Apply
-          </Button>
-        </Form>
-      </Formik>
-    </div>
+    <>
+      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        {overlay}
+        <ModalContent maxW="40vw" height="60vh" className={styles.container}>
+          <ModalHeader>
+            <h2>Purpose</h2>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={ApplyLoanValidation}
+              onSubmit={onSubmit}
+            >
+              
+              <Form className={styles.form}>
+              <FormikControl
+                    control="select"
+                    name="accountId"
+                    placeholder="Choose Account"
+                    dropDownOptions={accountOptions}
+                    variant="filled"
+                    fieldStyle={styles.selectField}
+                    focusBorderColor="gray.400"
+                  />
+                <FormikControl
+                  control="textarea"
+                  name="purpose"
+                  placeholder="Enter the reason why you apply for a loan"
+                  type="text"
+                  variant="filled"
+                  fieldStyle={styles.inputField}
+                  focusBorderColor="gray.400"
+                />
+                <Button type="submit" className={styles.btn}>
+                  Submit
+                </Button>
+              </Form>
+            </Formik>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 

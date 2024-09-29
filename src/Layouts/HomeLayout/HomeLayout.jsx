@@ -6,7 +6,6 @@ import Footer from "../../Components/Footer/Footer";
 import { publicRoutes } from "../../Lib/config";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { create } from "framer-motion/client";
 
 export const AuthDataProvider = createContext();
 export const AccountDataProvider = createContext();
@@ -15,6 +14,7 @@ function HomeLayout() {
   const [authData, setAuthData] = useState();
   const [accountDetails, setAccountDetails] = useState();
   const [allAccounts, setAllAccounts] = useState([])
+  const [updateAccounts, setUpdateAccounts] = useState(0)
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,7 +62,6 @@ function HomeLayout() {
         })
         .then((result) => {
           setAllAccounts(result.data.$values);
-          console.log(result.data.$values)
 
         })
         .catch((error) => {
@@ -71,12 +70,12 @@ function HomeLayout() {
         .finally(() => {
         });
     }
-  }, [authData]);
+  }, [authData,updateAccounts]);
 
   return (
     <div className={styles.container}>
-            <AllAccountProvider.Provider
-        value={allAccounts}
+          <AllAccountProvider.Provider
+        value={{allAccounts,updateAccounts, setUpdateAccounts}} 
       >
       <AccountDataProvider.Provider
         value={{ accountDetails, setAccountDetails }}

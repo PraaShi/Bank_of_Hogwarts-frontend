@@ -17,6 +17,7 @@ import Loan from "./Components/Loan/Loan";
 import LoanTypes from "./Components/LoanTypes/LoanTypes";
 import LoanHistory from "./Components/LoanHistory/LoanHistory";
 import HelpContent from "./Components/HelpContent/HelpContent";
+import ApplyLoan from "./Components/ApplyLoan/ApplyLoan";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/createAccount" element={<AccountRegister />} />
+        <Route path="/applyLoan" element={<ApplyLoan />} />
       </Route>
     </Routes>
     </Router>

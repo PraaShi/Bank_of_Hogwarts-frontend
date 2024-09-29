@@ -12,6 +12,7 @@ import {
   TabPanels,
   Tabs,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import WithdrawForm from "../WithdrawForm/WithdrawForm";
 import DepositForm from "../DepositForm/DepositForm";
@@ -19,84 +20,176 @@ import TransferForm from "../TransferForm/TransferForm";
 import BeneficiaryForm from "../BeneficiaryForm/BeneficiaryForm";
 import TransactionTable from "../TransactionTable/TransactionTable";
 import Filters from "../Filters/Filters";
-import { AllAccountProvider } from "../../Layouts/HomeLayout/HomeLayout";
+import { AccountDataProvider, AllAccountProvider, AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
+import axios from "axios";
+import { useNavigation } from "react-router-dom";
 
 function Transactions() {
+  const toast = useToast()
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [search, setSearch] = useState("");
   const [beneficiary, setBeneficiary] = useState([]);
   const [dropDownOptions, setDropDownOptions] = useState([]);
   const [accStatus, setAccStatus] = useState("");
-  const [activeAccounts, setActiveAccounts] = useState()
-  const [selectedAcc, setSelectedAcc] = useState({})
-
-  const allAccounts = useContext(AllAccountProvider);
+  const [activeAccounts, setActiveAccounts] = useState();
+  const [selectedAcc, setSelectedAcc] = useState({});
+  const [disabled, setDisabled] = useState(true)
+  const [allBeneficiaries, setAllBeneficiaries] = useState([])
+  const [transaction, setTransaction] = useState([])
+  const authData = useContext(AuthDataProvider);
+  const {allAccounts} = useContext(AllAccountProvider);
 
   useEffect(() => {
+    if (selectedAcc?.accountId) {
+      const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/getTransactions`;
+      console.log(url);
+      axios
+        .get(url
+          , {
+          headers: {
+            Authorization: `Bearer ${authData?.token}`,
+          },
+        }
+      )
+        .then((result) => {
+          setTransaction(result.data.$values);
+        })
+        .catch((error) => {
+          console.log(error);
+          setTransaction([])
+        })
+        .finally(() => {
+
+        });
+    }
+  }, [selectedAcc]);
 
 
-      const acc = allAccounts.filter((acc) => acc.status === 'Active');
-      setActiveAccounts(acc)
-      console.log(acc)
 
+  // const navigate = useNavigation();
+
+  useEffect(() => {
+    console.log(selectedAcc,"selectedAcc")
+    if(selectedAcc?.length > 0 || selectedAcc?.accountId){
+      setDisabled(false)
+      fetchBeneficiaries();
+    }
+    else{
+      setDisabled(true)
+    }
+  }, [selectedAcc])
+  
+
+  useEffect(() => {
+    const acc = allAccounts.filter((acc) => acc.status === "Active");
+    setActiveAccounts(acc);
+    console.log(acc);
   }, [allAccounts]);
 
-  useEffect(() =>{
-    
+  useEffect(() => {
     if (activeAccounts && activeAccounts.length > 0) {
       const options = activeAccounts.map((account, index) => ({
         label: `Account ${index + 1}`, // You can customize the label as needed
         value: account.accountId, // Use the transactionId or any other identifier as the value
       }));
 
-
-
       setDropDownOptions(options);
       console.log(options);
-  }
-  },[activeAccounts])
+    }
+  }, [activeAccounts]);
 
   const initialValue = {
     account: "",
   };
 
-  const membersList = [
-    "Praveena Shivaani",
-    "Rahul",
-    "Rajan",
-    "Lavanya",
-    "Ram",
-    "Janu",
-    "Leo",
-    "Sona",
-    "Ram",
-    "Janu",
-    "Leo",
-    "Sona",
-  ];
+  
 
-  useEffect(() => {}, []);
+
+  const fetchBeneficiaries = () => {
+    const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/beneficiaries`;
+      console.log(url);
+      axios
+        .get(url, {
+          headers: {
+            Authorization: `Bearer ${authData?.token}`,
+          },
+        })
+        .then((result) => {
+          const values = result.data.$values.map(value => {
+            return {
+              name: value.accountName,
+              id: value.beneficiaryId
+            }
+            })
+          
+
+          setAllBeneficiaries(values)
+        })
+        .catch((error) => {
+          console.log(error);
+        }).finally(() => {
+        })
+  }
 
   useEffect(() => {
     if (search === "") {
-      setBeneficiary(membersList);
+      setBeneficiary(allBeneficiaries);
     } else {
-      let value = membersList.filter((acc) =>
-        acc.toLowerCase().startsWith(search.toLowerCase())
+      let value = allBeneficiaries.filter((acc) =>
+        acc.name.toLowerCase().startsWith(search.toLowerCase())
       );
       setBeneficiary(value);
     }
 
     console.log(search);
-  }, [search]);
+  }, [search,allBeneficiaries]);
+
+ 
+
 
   const onSubmit = (values) => {
-    console.log(values);
-    onClose();
+    const data = {
+      accountName:values.accountName,
+      accountNumber:values.accountNumber.toString(),
+      branchId:Number(values.branch)
+    };
+    console.log(data);
+    console.log(selectedAcc,"helllo");
+    const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/add-beneficiary`;
+    axios
+      .post(url, data)
+      .then((result) => {
+        console.log(result);
+
+        toast({
+          title: "Beneficiary Added",
+          // description: "Kindly login to continue.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        fetchBeneficiaries();
+      })
+      .catch((error) => {
+        console.log(error);
+
+        toast({
+          title: "Can't Add Beneficiary",
+          description: "Try after a while.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      onClose();
   };
 
   const handleClick = (e) => {
-    onOpen();
+    console.log(disabled,"see me")
+    if(!disabled){
+      onOpen();
+
+    }
   };
 
   return (
@@ -109,7 +202,7 @@ function Transactions() {
                 const account = allAccounts?.find(
                   (acc) => acc.accountId === values.account
                 );
-                setSelectedAcc(account)
+                setSelectedAcc(account);
               }, [values.account]);
               return (
                 <Form className={styles.form}>
@@ -153,36 +246,24 @@ function Transactions() {
                   <div key={index}>
                     <Avatar
                       className={`${index % 2 == 0 ? styles.even : styles.odd}`}
-                      name={member}
+                      name={member.name.toString()}
                     />
-                    <p>{member}</p>
+                    <p>{member.name}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* <div className={styles.transaction}>
-          <div>
-            <div className={styles.withdraw}>
-              <WithdrawForm />
-            </div>
-            <div className={styles.deposit}>
-              <DepositForm />
-            </div>
-          </div>
-          <div>
-            <div className={styles.transfer}>
-              <TransferForm beneficiary={membersList}/>
-            </div>
-          </div>
-        </div> */}
+         
 
           <Tabs isFitted variant="enclosed" className={styles.tab}>
             <TabList className={styles.tablist} mb="1em">
-              <Tab><div>Withdraw</div></Tab>
               <Tab>
-                <div>Deposite</div>
+                <div>Withdraw</div>
+              </Tab>
+              <Tab>
+                <div>Deposit</div>
               </Tab>
               <Tab>
                 <div>Transfer</div>
@@ -194,22 +275,23 @@ function Transactions() {
             <TabPanels className={styles.tabPanels}>
               <TabPanel className={styles.tabPanel}>
                 <div className={styles.withdraw}>
-                  <WithdrawForm accStatus={accStatus}/>
+                  <WithdrawForm accStatus={accStatus} selectedAcc={selectedAcc} />
                 </div>
               </TabPanel>
               <TabPanel className={styles.tabPanel}>
                 <div className={styles.deposite}>
-                  <DepositForm accStatus={accStatus}/>
+                  <DepositForm accStatus={accStatus}  selectedAcc={selectedAcc} />
                 </div>
               </TabPanel>
               <TabPanel className={styles.tabPanel}>
                 <div className={styles.transfer}>
-                  <TransferForm beneficiary={membersList} />
+                  <TransferForm beneficiary={allBeneficiaries}  selectedAcc={selectedAcc} />
                 </div>
               </TabPanel>
               <TabPanel className={styles.tabPanel}>
                 <div className={styles.history}>
                   <Filters />
+                  <TransactionTable transactionDetail = {transaction}/>
                 </div>
               </TabPanel>
             </TabPanels>
@@ -221,6 +303,7 @@ function Transactions() {
         onOpen={onOpen}
         isOpen={isOpen}
         onSubmit={onSubmit}
+        
       />
     </>
   );

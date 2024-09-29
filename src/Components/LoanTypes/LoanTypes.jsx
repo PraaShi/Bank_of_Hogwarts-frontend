@@ -17,9 +17,11 @@ const LoanTypes = () => {
         },
       });
       const data = response.data;
+      
   
       if (data && Array.isArray(data.$values)) {
         setLoanTypes(data.$values);
+        console.log(loanTypes,"loan Tyeps")
       } else {
         console.error("Expected an array in $values but got", typeof data.$values);
         setLoanTypes([]); 
@@ -36,13 +38,28 @@ const LoanTypes = () => {
     fetchLoanTypes();
   }, []);
 
-  const handleApplyClick = (loanTypeId) => {
-    navigate(`/loan-application/${loanTypeId}`);
+  const handleApplyClick = (loanTypes) => {
+    // navigate(`/loan-application/${loanTypeId}`);
+    navigate(`/applyLoan`)
   };
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  
+  
+  // useEffect(() => {
+  //   const options = loanTypes.map((loanData) => {
+  //     return {
+  //       label: loanData.loanType,
+  //       value: loanData.loanTypeId,
+  //     };
+  //   });
+  //   setBranchOptions(options);
+  //   console.log(options);
+  // }, [branches]);
+  
 
   return (
     <div>
@@ -68,7 +85,7 @@ const LoanTypes = () => {
       <Td>
         <Button
           colorScheme="teal"
-          onClick={() => handleApplyClick(loanType.loanTypeId)}
+          onClick={() => handleApplyClick(loanTypes)}
         >
           Apply
         </Button>

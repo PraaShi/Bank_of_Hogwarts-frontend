@@ -3,7 +3,6 @@ import styles from "./Help.module.scss";
 import { Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import { AccountRegistorValidation } from "../../Lib/Validator";
 import FormikControl from "../../Forms/Formik/FormikControl";
 
 function Help() {

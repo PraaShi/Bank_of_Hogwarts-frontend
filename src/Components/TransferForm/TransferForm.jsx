@@ -1,27 +1,81 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "./TransferForm.module.scss";
-import { Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, useToast } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { TransferValidation } from "../../Lib/Validator";
 import FormikControl from "../../Forms/Formik/FormikControl";
+import { AllAccountProvider } from '../../Layouts/HomeLayout/HomeLayout';
+import axios from 'axios';
 
-function TransferForm({beneficiary}) {
+function TransferForm({beneficiary, selectedAcc}) {
+  const [beneficiaryOpions, setbeneficiaryOpions] = useState([])
+console.log(beneficiary, 'transfer form')
+
+const {setUpdateAccounts} = useContext(AllAccountProvider);
+const toast = useToast();
+const navigate = useNavigate();
     const initialValues = {
-        amount: "",
+        amount: null,
         pin: "",
+        beneficiary: null
       };
 
-      const beneficiaryList = beneficiary.map((ben) => {
-        return {
-          label:ben,
-          value:ben
-        }
-      })
-
+      useEffect(() => {
+        const options = beneficiary.map((option) => {
+          return { label: option.name, value: option.id }
+        })
+        setbeneficiaryOpions(options)
+      },[beneficiary])
+      
       const onSubmit = (values) => {
-        console.log(values);
-      };
+        if(values.amount < selectedAcc.balance){
+    
+        
+        const data = {
+          beneficiaryId: Number(values.beneficiary),
+          amount: Number(values.amount),
+          pin: values.pin.toString(),
+        };
+        console.log(data);
+        const url = `https://localhost:7135/api/accountActions/${selectedAcc.accountId}/TransferMoney`;
+        console.log(url);
+        axios
+          .post(url, data)
+          .then((result) => {
+            console.log(result);
+    
+            toast({
+              title: "Transfer Successful",
+              // description: "Kindly login to continue.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
+            setUpdateAccounts(prev => prev + 1)
+            navigate("/myprofile");
+          })
+          .catch((error) => {
+            console.log(error);
+    
+            toast({
+              title: "Transfer Unsuccessful",
+              description: "Try after a while.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+        } else {
+          
+          toast({
+            title: "Transfer Unsuccessful",
+            description: "Insufficient Balance",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+        });
+      }};
   return (
     <div className={styles.container}>
       <h2>Transfer Money</h2>
@@ -35,7 +89,7 @@ function TransferForm({beneficiary}) {
             control="select"
             name="beneficiary"
             placeholder="Beneficiary"
-            dropDownOptions={beneficiaryList}
+            dropDownOptions={beneficiaryOpions}
             variant="filled"
             fieldStyle={styles.inputField}
             focusBorderColor="gray.400"
@@ -44,7 +98,7 @@ function TransferForm({beneficiary}) {
             control="input"
             name="amount"
             placeholder="Amount"
-            type="text"
+            type="number"
             variant="filled"
             fieldStyle={styles.inputField}
             focusBorderColor="gray.400"
@@ -53,13 +107,13 @@ function TransferForm({beneficiary}) {
             control="input"
             name="pin"
             placeholder="PIN"
-            type="text"
+            type="password"
             variant="filled"
             fieldStyle={styles.inputField}
             focusBorderColor="gray.400"
           />
           <Button type="submit" className={styles.loginbtn}>
-            Apply
+            Transfer
           </Button>
         </Form>
       </Formik>

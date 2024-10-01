@@ -60,11 +60,13 @@ export const EmployeeRegistorValidation = Yup.object({
 
 export const FilterValidation = Yup.object({
   startDate: Yup.date()
-    .required("Start Date is required")
+  .nullable()
+    // .required("Start Date is required")
     .max(new Date(), "It's future date"),
 
   endDate: Yup.date()
-    .required("End Date is required")
+  .nullable()
+    // .required("End Date is required")
     .max(new Date(), "It's future date")
     .when("startDate", (startDate, schema) => {
       return startDate ? schema.min(startDate, "Incorrect End Date") : schema;

@@ -3,13 +3,17 @@ import styles from "./MyProfile.module.scss";
 import Profile from "../Profile/Profile";
 import History from "../History/History";
 import AccountDetails from "../AccountDetails/AccountDetails";
-import { RequestDeactivationBack, RequestDeactivationFront } from "../RequestDeactivation/RequestDeactivation";
-import Help from "../Help/Help";
+import {
+  RequestDeactivationBack,
+  RequestDeactivationFront,
+} from "../RequestDeactivation/RequestDeactivation";
+import Help from "../MyLoan/MyLoan";
 import { ChangePinBack, ChangePinFront } from "../ChangePin/ChangePin";
 import { useNavigate } from "react-router-dom";
 import { AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
-
-
+import LoanHistory from "../LoanHistory/LoanHistory";
+import { Button } from "@chakra-ui/react";
+import MyLoan from "../MyLoan/MyLoan";
 
 function MyProfile() {
   const [value, setvalue] = useState(false);
@@ -17,13 +21,12 @@ function MyProfile() {
 
   const authData = useContext(AuthDataProvider);
 
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
-        <Profile  />
+        <Profile />
       </div>
       <div className={styles.transaction}>
         <AccountDetails />
@@ -40,13 +43,16 @@ function MyProfile() {
         </div>
         <div className={styles.cardFlip}>
           <div
-            className={`${styles.cardFlipInner} ${styles.appear} ${request ? styles.rotate : ""}`}
+            className={`${styles.cardFlipInner} ${styles.appear} ${
+              request ? styles.rotate : ""
+            }`}
           >
-            <RequestDeactivationFront setrequest={setrequest}/>
+            <RequestDeactivationFront setrequest={setrequest} />
             <RequestDeactivationBack setrequest={setrequest} />
           </div>
         </div>
-        <Help />
+        {/* <Help /> */}
+        <MyLoan />
       </div>
     </div>
   );

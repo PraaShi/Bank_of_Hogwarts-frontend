@@ -39,10 +39,11 @@ function Transactions() {
   const authData = useContext(AuthDataProvider);
   const {allAccounts} = useContext(AllAccountProvider);
 
+  
+
   useEffect(() => {
     if (selectedAcc?.accountId) {
       const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/getTransactions`;
-      console.log(url);
       axios
         .get(url
           , {
@@ -55,7 +56,6 @@ function Transactions() {
           setTransaction(result.data.$values);
         })
         .catch((error) => {
-          console.log(error);
           setTransaction([])
         })
         .finally(() => {
@@ -68,8 +68,7 @@ function Transactions() {
 
   // const navigate = useNavigation();
 
-  useEffect(() => {
-    console.log(selectedAcc,"selectedAcc")
+  useEffect(() => { //disable benificiary button
     if(selectedAcc?.length > 0 || selectedAcc?.accountId){
       setDisabled(false)
       fetchBeneficiaries();
@@ -83,7 +82,6 @@ function Transactions() {
   useEffect(() => {
     const acc = allAccounts.filter((acc) => acc.status === "Active");
     setActiveAccounts(acc);
-    console.log(acc);
   }, [allAccounts]);
 
   useEffect(() => {
@@ -94,7 +92,6 @@ function Transactions() {
       }));
 
       setDropDownOptions(options);
-      console.log(options);
     }
   }, [activeAccounts]);
 
@@ -107,7 +104,6 @@ function Transactions() {
 
   const fetchBeneficiaries = () => {
     const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/beneficiaries`;
-      console.log(url);
       axios
         .get(url, {
           headers: {
@@ -126,7 +122,6 @@ function Transactions() {
           setAllBeneficiaries(values)
         })
         .catch((error) => {
-          console.log(error);
         }).finally(() => {
         })
   }
@@ -141,7 +136,6 @@ function Transactions() {
       setBeneficiary(value);
     }
 
-    console.log(search);
   }, [search,allBeneficiaries]);
 
  
@@ -153,13 +147,10 @@ function Transactions() {
       accountNumber:values.accountNumber.toString(),
       branchId:Number(values.branch)
     };
-    console.log(data);
-    console.log(selectedAcc,"helllo");
     const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/add-beneficiary`;
     axios
       .post(url, data)
       .then((result) => {
-        console.log(result);
 
         toast({
           title: "Beneficiary Added",
@@ -171,7 +162,6 @@ function Transactions() {
         fetchBeneficiaries();
       })
       .catch((error) => {
-        console.log(error);
 
         toast({
           title: "Can't Add Beneficiary",
@@ -185,7 +175,6 @@ function Transactions() {
   };
 
   const handleClick = (e) => {
-    console.log(disabled,"see me")
     if(!disabled){
       onOpen();
 
@@ -254,9 +243,7 @@ function Transactions() {
               </div>
             </div>
           </div>
-
-         
-
+          
           <Tabs isFitted variant="enclosed" className={styles.tab}>
             <TabList className={styles.tablist} mb="1em">
               <Tab>

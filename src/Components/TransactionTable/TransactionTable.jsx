@@ -10,6 +10,7 @@ import {
   Th,
   Thead,
   Tr,
+  Tooltip, 
 } from "@chakra-ui/react";
 import { useState, createContext, useContext } from "react";
 import { DetailContext } from "../History/History";
@@ -44,7 +45,18 @@ function TransactionTable({sliceValue, transactionDetail}) {
                 <div>{option.credit ? "Credit" : "Debit"}</div>
               </Td>
               <Td className={styles.amount}>{option.credit ? option.credit : option.debit}</Td>
-              <Td className={styles.description}>{option.description.split(' ').length >4 ? option.description.split(' ').slice(0, 4).join(' ')+'...' : option.description}</Td>
+              <Td className={styles.description}> <Tooltip
+                  label={option.description}
+                  aria-label="Full description"
+                  hasArrow
+                  placement="top"
+                >
+                  <span>
+                    {option.description.split(" ").length > 4
+                      ? option.description.split(" ").slice(0, 4).join(" ") + "..."
+                      : option.description}
+                  </span>
+                </Tooltip></Td>
               <Td className={styles.date}>{option.transactionDate}</Td>
             </Tr>
           ))}

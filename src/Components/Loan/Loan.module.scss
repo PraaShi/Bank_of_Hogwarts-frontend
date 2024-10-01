@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .container {
   width: 100%;
   height: 93vh;
@@ -25,6 +27,9 @@
   justify-content: space-around;
   align-items: center;
   margin: auto;
+  @include mid-break {
+    flex-direction: column;
+  }
 
   > div:nth-child(1) {
     flex: 1;
@@ -36,16 +41,38 @@
     align-items: center;
     z-index: 1;
     transform: scale(130%);
+    @include mid-break {
+      width:100%;
+      margin: 4vh 0;
+    }
+  
+
     > h2 {
       font-size: 37px;
       font-weight: 700;
       color: var(--dark-green);
       width: 50%;
+      @include large-break {
+        font-size: 30px;
+        width:60%;
+      }
+      @include mid-break {
+        font-size: 25px;
+        width:60%;
+      }
     }
     > h1 {
       font-size: 15px;
       width: 50%;
       color: var(--dark-green);
+      @include large-break {
+        font-size: 12px;
+        width:60%;
+      }
+      @include mid-break {
+        font-size: 10px;
+        width:60%;
+      }
     }
   }
 }
@@ -58,6 +85,9 @@
   > img {
     width: 100%;
     // background-color: bisque;
+    @include mid-break {
+      display: none;
+    }
   }
 }
 
@@ -67,7 +97,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap:12vh;
+  gap: 12vh;
   > div {
     width: 70%;
     height: 45vh;
@@ -78,31 +108,30 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-// gap: 1vh;    
-    
+    // gap: 1vh;
   }
 }
 
-.header{
-  width:100%;
+.header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  >div{
-    >h2 {
+  > div {
+    > h2 {
       font-size: 26px;
       font-weight: 600;
     }
-    >p{
+    > p {
       margin-bottom: 3vh;
     }
   }
 
-  >div:nth-child(2){
-    >button{
+  > div:nth-child(2) {
+    > button {
       background-color: var(--dark-green);
-      color:white;
+      color: white;
     }
   }
 }
@@ -112,47 +141,74 @@
   justify-content: space-between;
   width: 100%;
   height: 80%;
+
+
   // background-color: aqua;
-  
-  >div:nth-of-type(2n + 1){
-    >div {
-    background-color: #F5E7DA;
-  }}
-  >div:nth-of-type(2){
-    div{
-    background-color: rgba(0, 0, 0, 0.486);
-  }}
+
+  > div:nth-of-type(2n + 1) {
+    width:100%;
+    height: 100%;
+    > div {
+
+      background-color: #f5e7da;
+      @include large-break{
+        width: 80%;
+      }
+      @include mid-break{
+        height: 60%;
+      }
+    }
+  }
+  > div:nth-of-type(2) {
+    width:100%;
+    height: 100%;
+    div {
+      background-color: rgba(0, 0, 0, 0.486);
+      @include large-break{
+        width: 80%;
+      }
+      @include mid-break{
+        height: 60%;
+      }
+    }
+  }
   // >div:nth-of-type(3){
   //   background-color: #F5E7DA;
   // }
-  >div{
+  > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5vh;
-    >p{
+    > p {
       font-size: 22px;
     }
-  > div {
-    width:20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  width: 200px;
-  height: 200px;
-    border-radius: 15px;
-    > img {
-      width:50%;
-      height: 50%;
+    > div {
+      width: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 200px;
+      border-radius: 15px;
+      > img {
+        width: 50%;
+        height: 50%;
+      }
     }
   }
 }
-}
 
-.loanContent{
+.loanContent {
   display: flex;
   justify-content: space-between;
-  padding:0 4vw;
+  padding: 0 4vw;
   font-size: 20px;
   font-weight: 500;
+  @include large-break{
+    width: 80%;
+  }
+  @include mid-break{
+    height: 60%;
+  }
 }

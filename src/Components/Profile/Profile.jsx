@@ -12,7 +12,6 @@ function Profile() {
   useEffect(() => {
     if (authData?.token) {
       const url = `https://localhost:7135/api/account/customers/${authData?.customerId}`;
-      console.log(url);
       axios
         .get(url, {
           headers: {
@@ -23,7 +22,6 @@ function Profile() {
           setResponse(result.data);
         })
         .catch((error) => {
-          console.log(error);
         }).finally(() => {
           setLoading(false)
         })

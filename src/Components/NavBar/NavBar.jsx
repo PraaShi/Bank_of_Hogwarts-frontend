@@ -12,7 +12,7 @@ function NavBar() {
     const logOut = (e) => {
         localStorage.removeItem("jwtToken"); 
         localStorage.removeItem("customerId");
-        navigate('/auth')
+        navigate('/')
  
     }
     return (

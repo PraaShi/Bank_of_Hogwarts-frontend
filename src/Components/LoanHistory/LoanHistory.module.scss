@@ -1,0 +1,107 @@
+@import '../../App.scss';
+
+.container{
+    padding:2vh 8vw;
+    width:100%;
+    height:93vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2vh;
+    font-family: Revans;
+
+    >input{
+        // background-color:#279b27;
+    }
+    @include mid-break{
+        height:220vh;
+    }
+    @include small-break{
+        height:200vh;
+    }
+}
+
+.filter{
+    width:100%;
+    height:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:12vw;
+
+    border-radius: 30px;
+    font-family: poppins;
+    font-weight: 500;
+    background-color: #f4faf4;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    @include small-break{
+        flex-direction: column;
+        width:100%;
+        height:20%;
+    }
+}
+
+.form{
+    width:20%;
+
+    @include xlarge-break{
+        font-size: 12px;
+    }
+    @include small-break{
+        width:80%;
+    }
+}
+
+.credit{
+    position:relative;
+    width:20%;
+    div:nth-of-type(1){
+        position:absolute;
+        inset:2px;
+        // background-color: #EFFDEF;
+        background-color: #49d07d30;
+        border-radius: 5px;
+    }
+    div:nth-of-type(2){
+        position:absolute;
+        z-index: 1;
+        bottom: 25%;
+        text-transform: capitalize;
+    }
+
+    &::after{
+        content: url("/assests/dot.svg");
+        position:absolute;
+        width:30px;
+        top:25%;
+        right:8%;
+        opacity:0.7;
+    }
+}
+
+.debit{
+    width:20%;
+    position:relative;
+    div:nth-of-type(1){
+        position:absolute;
+        inset:2px;
+        background-color: #ef233b28;
+        border-radius: 5px;
+    }
+    div:nth-of-type(2){
+        position:absolute;
+        z-index: 1;
+        bottom: 25%;
+        text-transform: capitalize;
+    }
+
+    &::after{
+        content: url("/assests/dotRed.svg");
+        position:absolute;
+        width:30px;
+        top:25%;
+        right:8%;
+        opacity:0.7;
+    }
+}

@@ -54,7 +54,6 @@ function AccountDetails() {
           setAccType((prev) => [...prev, result.data]);
         })
         .catch((error) => {
-          console.log(error);
         })
         .finally(() => {
           setLoading(false);
@@ -65,7 +64,6 @@ function AccountDetails() {
   const getBranchInfo = () => {
     allAccounts.map((acc) => {
       const url = `https://localhost:7135/api/branch/${acc.branchId}`;
-      // console.log(url);
       axios
         .get(url, {
           headers: {
@@ -83,12 +81,23 @@ function AccountDetails() {
           ]);
         })
         .catch((error) => {
-          console.log(error);
         })
         .finally(() => {
           setLoading(false);
         });
     });
+  };
+
+  // Handle copy functionality
+  const handleCopy = (textToCopy) => {
+    navigator.clipboard.writeText(textToCopy).then(
+      () => {
+        alert("Copied to clipboard!");
+      },
+      (error) => {
+        console.error("Failed to copy text: ", error);
+      }
+    );
   };
 
   useEffect(() => {
@@ -180,14 +189,18 @@ function AccountDetails() {
                   <p>Account Number</p>
                   <div>
                     {acc.accountNumber}
-                    <img src="/assests/copy.svg" />
+                    <img src="/assests/copy.svg"  alt="Copy"
+                      onClick={() => handleCopy(branch[index]?.ifscCode)}
+                      style={{ cursor: "pointer" }}/>
                   </div>
                 </div>
                 <div className={styles.ifsc}>
                   <p>IFSC Code</p>
                   <div>
                     {branch[index]?.ifscCode}
-                    <img src="/assests/copy.svg" />
+                    <img src="/assests/copy.svg"  alt="Copy"
+                      onClick={() => handleCopy(branch[index]?.ifscCode)}
+                      style={{ cursor: "pointer" }}/>
                   </div>
                 </div>
                 <div className={styles.branch}>

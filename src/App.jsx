@@ -14,6 +14,7 @@ import AccountRegister from "./Components/AccountRegister/AccountRegister";
 import Transactions from "./Components/Transactions/Transactions";
 import Loan from "./Components/Loan/Loan";
 import LoanHistory from "./Components/LoanHistory/LoanHistory";
+import HelpContent from "./Components/HelpContent/HelpContent";
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/myprofile" element={<MyProfile />} />
-        {/* <Route path="/help" element={<HelpContent />} /> */}
+        <Route path="/help" element={<HelpContent />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/createAccount" element={<AccountRegister />} />

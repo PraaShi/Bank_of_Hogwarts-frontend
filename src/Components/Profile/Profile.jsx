@@ -7,7 +7,7 @@ import { AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 function Profile() {
   const [response, setResponse] = useState();
   const authData = useContext(AuthDataProvider);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (authData?.token) {
@@ -21,22 +21,35 @@ function Profile() {
         .then((result) => {
           setResponse(result.data);
         })
-        .catch((error) => {
-        }).finally(() => {
-          setLoading(false)
-        })
+        .catch((error) => {})
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [authData]);
 
-    if (loading) {
-    return <Spinner size="xl" />;  // Display a loading spinner while fetching data
+  if (loading) {
+    return <Spinner size="xl" />; // Display a loading spinner while fetching data
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.female}>
-        <img src="/assests/female.png" className={styles.profileicon}></img>
+        {response.gender.toString().toLowerCase() === "female" ? (
+          <img
+            src="/assests/female.png"
+            className={styles.profileicon}
+            alt="Female"
+          />
+        ) : (
+          <img
+            src="/assests/male.png"
+            className={styles.profileicon}
+            alt="Male"
+          />
+        )}
       </div>
+
       {response && (
         <div className={styles.tags}>
           <div className={styles.tag}>

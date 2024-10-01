@@ -1,36 +1,109 @@
 @keyframes infiniteScroll {
-    from {transform: translateX(0) }
-    to {transform: translateX(calc(0px - 50%));}
+  from {
+    transform: translateX(0);
   }
+  to {
+    transform: translateX(calc(0px - 50%));
+  }
+}
 
-.container{
-    height:100%;
-    width:100%;
+.container {
+  height: 7vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #173b1a;
+}
+
+.parentContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  background-color: var(--dark-green);
+  flex: 1;
+  width: 100%;
+  display: flex;
+  color: #e9ddc9;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4vw;
+}
+
+.details,
+.social,
+.contact {
+  height: 100%;
+  // background-color: #E9DDC9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2vh;
+  > h2 {
+    font-size: 20px;
+    text-decoration-line: underline;
+  }
+  > div {
+    width: fit-content;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    // background-color: aqua;
+    height:65%;
+  }
+}
+
+.social,
+.contact {
+  > div {    
+    >div{
+        display: flex;
+        gap: 1vw;
+    }
+    >a{
+        display: flex;
+        gap: 1vw;
+    }
+  }
+  img {
+    width: 20px;
+  }
+}
+.social{
+    // background-color: aqua;
     align-items: center;
-    background-color: #173B1A;
+>div{
+    >div:nth-of-type(1){
+        >img{
+            transform: scale(160%);
+        }
+    }
+   
+}
 }
 
-.scrolling{
-    display: flex;
-    font-size: 15px; 
-    color:antiquewhite;
-    animation-name: infiniteScroll;
-    animation-duration: 30s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    gap:3vw;
+.scrolling {
+  display: flex;
+  font-size: 15px;
+  color: antiquewhite;
+  animation-name: infiniteScroll;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  gap: 3vw;
 }
 
-.scrolling_items{
-    white-space: nowrap;
-    display: flex;
-    gap:3vw;
-    font-family:Revans;
-
+.scrolling_items {
+  white-space: nowrap;
+  display: flex;
+  gap: 3vw;
+  font-family: Revans;
 }
 
-.content{
-    display:flex;
-    gap:2vw;
+.content {
+  display: flex;
+  gap: 2vw;
 }

@@ -5,13 +5,23 @@
     align-items: center;
     padding:2vh 4vw;
 
+    // >div:nth-of-type(1){
+    //     width:25%;
+    //     color:#173B1A;
+    //     font-weight: 900;
+    //     font-family: Longway;
+    //     font-size: 22px;
+    // }
     >div:nth-of-type(1){
         width:25%;
-        color:#173B1A;
-        font-weight: 900;
-        font-family: Longway;
-        font-size: 22px;
+        margin-top: 2vh;
     }
+}
+
+.logoImage{
+    width:150px;
+    height:50px;
+    // background-color: #86b98a;
 }
 
 .options{

@@ -1,9 +1,13 @@
 @import '../../App.scss';
 
+.parentContainer{
+    overflow-y: auto;
+}
+
 .container{
     width:100%;
     height:93vh;
-    overflow-y: auto;
+   
     display:flex;
     // margin-left: 5vw;
     padding:0 3vw;
@@ -218,5 +222,144 @@
             font-size: 20px;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
+    }
+}
+
+.phContainer{
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+    font-family: Ravens;
+    background-color: var(--dark-green);
+
+    >h2{
+        margin:auto;
+        width:100vw;
+        text-align: center;
+        font-size: 30px;
+        color:#F4F2EC;
+    }
+}
+
+.faqsContainer{
+    display: flex;
+    width:100%;
+    height:80%;
+    margin-top: auto;
+    padding:0 4vw;
+}
+
+.faqs{
+    height:100%;
+    width:60%;
+    // background-color: #F4F2EC;
+}
+
+.faq{
+    height:50%;
+    margin-top:90px;
+    // background-color: #7f6310;
+}
+
+
+.homePic{
+    display: flex;
+    width:40%;
+    img{
+        width:300px;
+        margin: auto;
+    }
+}
+
+//
+
+.faq {
+    font-family:Ravens; 
+    color: #e8f4e9; 
+  }
+  
+  .faq .accordion-item {
+    border-bottom: 1px solid #5b7758 !important; 
+  }
+  
+  .accordion-button {
+    background: none; 
+    color: #e8f4e9; 
+    padding: 10px 0;
+    font-size: 1.2rem !important;
+    font-weight: bold; 
+    >div{
+        height:10vh !important;
+    }
+    
+  }
+  
+  .accordion-button:hover {
+    background: rgba(0, 0, 0, 0.11); 
+  }
+  
+
+//slider
+/* Basic styling for the body and carousel container */
+
+  
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw !important; 
+    max-width: 120px; /* Set a max width for larger screens */
+    height: auto; /* Let height adjust based on aspect ratio */
+    background-color: #fff;
+    margin-bottom: 0px;
+  }
+  
+  .swiper {
+    width: 0%;
+    height: auto; /* Let height adjust based on width */
+    aspect-ratio: 16 / 9; /* Maintain the 1920x1080 (16:9) aspect ratio */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    width: 0%;
+    height: 100%;
+    object-fit: contain; /* Ensures the image fits within the container without cropping */
+    object-position: center; /* Centers the image within the slide */
+    border-radius: 40px;
+  }
+  
+  /* Custom styles for pagination and navigation */
+  .swiper-pagination-bullet {
+    background: #194c21;
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #00050a;
+  }
+.outerMostSwiper{
+    height:60vh;
+    margin: 20px 0;
+}
+
+.outerSwiper{
+    height:60vh;
+    width:60vw;
+}
+
+.innerSwiper{
+    >img{
+        // width:1000px;
+        // height:600px;
+        // transform:scale()
     }
 }

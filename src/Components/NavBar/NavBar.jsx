@@ -18,7 +18,8 @@ const [update, setUpdate] = useState(0)
     }, [authData?.token])
     return (
     <div className={styles.container}>
-        <div><Link to='/'>Bank Of Hogwarts</Link></div>
+        {/* <div><Link to='/'>Bank Of Hogwarts</Link></div> */}
+        <div><Link to='/'><img src='/assests/logoName.png' className={styles.logoImage}></img></Link></div>
         <div  className={styles.options}>
             {
                 options.map((option,index) =>

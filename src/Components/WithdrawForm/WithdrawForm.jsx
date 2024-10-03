@@ -28,6 +28,16 @@ export function WithdrawForm({ accStatus, selectedAcc }) {
   });
 
   const onSubmit = (values) => {
+    if(!selectedAcc?.accountId){
+      toast({
+        title: "Choose an account",
+        // description: "Choose",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+    else{
     if (values.amount < selectedAcc.balance) {
       const data = {
         accountId: Number(selectedAcc.accountId),
@@ -54,10 +64,12 @@ export function WithdrawForm({ accStatus, selectedAcc }) {
         })
         .catch((error) => {
           console.log(error);
+          let error1 = error.response.data.toString().split('\r\n')[0]
+        let error2 = error1.split(':')[1]
 
           toast({
             title: "Withdraw Unsuccessful",
-            description: "Try after a while.",
+            description: error2,
             status: "error",
             duration: 5000,
             isClosable: true,
@@ -71,7 +83,7 @@ export function WithdrawForm({ accStatus, selectedAcc }) {
         duration: 5000,
         isClosable: true,
       });
-    }
+    }}
   };
   return (
     <div className={styles.container}>

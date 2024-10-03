@@ -1,20 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './NavBar.module.scss'
 import { Button } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthDataProvider } from '../../Layouts/HomeLayout/HomeLayout';
 
-function NavBar() {
+function NavBar({logOut}) {
     const authData= useContext(AuthDataProvider);
-    const options = [{link:'/about',name:"ABOUT US"},{link:'/transactions',name:"TRANSACTIONS"},{link:'/loan',name:"LOAN"},{link:'/myprofile',name:"MY PROFILE"}]
+    const options = [{link:'/about',name:"ABOUT US"},{link:'/myprofile',name:"MY PROFILE"},{link:'/transactions',name:"TRANSACTIONS"},{link:'/loan',name:"LOAN"}]
+const [update, setUpdate] = useState(0)
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-    const logOut = (e) => {
-        localStorage.removeItem("jwtToken"); 
-        localStorage.removeItem("customerId");
-        navigate('/')
- 
-    }
+
+    useEffect(() =>{
+        console.log('removed auth', authData)
+        setUpdate(prev => prev + 1)
+
+    }, [authData?.token])
     return (
     <div className={styles.container}>
         <div><Link to='/'>Bank Of Hogwarts</Link></div>

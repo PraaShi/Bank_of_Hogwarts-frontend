@@ -26,6 +26,7 @@ function Login() {
     axios
       .post(url, data)
       .then((result) => {
+        if(result.data.status == 'Active'){
         toast({       //toast
           title: 'login Successfully.',
           description: "",
@@ -38,8 +39,17 @@ function Login() {
         const token = result.data.token;
         const customerId = result.data.customerId
         localStorage.setItem("jwtToken", token,1800000); 
-        localStorage.setItem("customerId", customerId,1800000)
+        localStorage.setItem("customerId", customerId,1800000) //30 min after the token will go
         navigate("/");
+      }else{
+        toast({       //toast
+          title: 'login UnSuccessfully.',
+          description: "Customer is Inactive",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
       })
       .catch((error) => {
         toast({       //toast

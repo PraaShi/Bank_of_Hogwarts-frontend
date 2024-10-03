@@ -72,3 +72,13 @@
 .date{
     width:20%;
 }
+
+.noAcc{
+    width:100%;
+    height:25vh;
+    display: flex;
+    >h2{
+    margin:auto auto;
+    font-size: large;
+    }
+}

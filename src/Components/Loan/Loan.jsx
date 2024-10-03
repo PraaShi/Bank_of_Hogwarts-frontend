@@ -112,10 +112,7 @@ function Loan() {
         </div>
       </div>
       <div className={styles.details}>
-        {/* <LoanTypes /> */}
-        {/* <LoanHistory /> */}
         <div>
-          {/* Home Loan Section */}
           <div className={styles.header}>
             <div>
               <h2>Home Loan</h2>
@@ -148,7 +145,6 @@ function Loan() {
         </div>
 
         <div>
-          {/* Personal Loan Section */}
           <div className={styles.header}>
             <div>
               <h2>Personal Loan</h2>
@@ -184,7 +180,6 @@ function Loan() {
         </div>
 
         <div>
-          {/* Education Loan Section */}
           <div className={styles.header}>
             <div>
               <h2>Education Loan</h2>
@@ -217,7 +212,6 @@ function Loan() {
         </div>
 
         <div>
-          {/* Car Loan Section */}
           <div className={styles.header}>
             <div>
               <h2>Car Loan</h2>
@@ -252,7 +246,6 @@ function Loan() {
         </div>
 
         <div>
-          {/* Business Loan Section */}
           <div className={styles.header}>
             <div>
               <h2>Business Loan</h2>
@@ -293,7 +286,7 @@ function Loan() {
         isOpen={isOpen}
         onSubmit={onSubmit}
         activeAccounts={activeAccounts}
-      />
+      /> 
     </>
   );
 }

@@ -3,6 +3,8 @@
     width:100%;
     display: flex;
     align-items: center;
+    padding:2vh 4vw;
+
     >div:nth-of-type(1){
         width:25%;
         color:#173B1A;
@@ -10,7 +12,6 @@
         font-family: Longway;
         font-size: 22px;
     }
-    padding:2vh 4vw;
 }
 
 .options{

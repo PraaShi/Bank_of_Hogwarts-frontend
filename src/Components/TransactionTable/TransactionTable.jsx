@@ -22,7 +22,10 @@ function TransactionTable({sliceValue, transactionDetail}) {
   const slice  = sliceValue ? sliceValue : detail.length;
   console.log(detail, 'transaction table')
   return (
+    <>
+    { detail?.length != 0 ? (
     <TableContainer className={styles.table}>
+
       <Table variant="simple">
         <TableCaption></TableCaption>
         <Thead>
@@ -63,6 +66,9 @@ function TransactionTable({sliceValue, transactionDetail}) {
         </Tbody>
       </Table>
     </TableContainer>
+    ) : (<div className={styles.noAcc}><h2>Either Account is Closed or No Transaction Found</h2></div>)}
+    </>
+        
   );
 }
 

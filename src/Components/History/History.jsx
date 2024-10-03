@@ -31,6 +31,7 @@ function History() {
 
 
   useEffect(() => {
+    console.log(accountDetails?.accountId,"its mee")
     if (accountDetails?.accountId) {
       const url = `https://localhost:7135/api/accountActions/${accountDetails?.accountId}/getTransactions`;
       console.log(url);
@@ -50,6 +51,8 @@ function History() {
         })
         .catch((error) => {
           setTransaction([]);
+          setFilteredTransaction([])
+          
         })
         .finally(() => {});
     }

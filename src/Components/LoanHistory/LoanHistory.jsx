@@ -32,6 +32,15 @@ export default function LoanHistory() {
     account: "",
   };
 
+const disburseDate = (date) => {
+ let newDate  =  new Date(date).toISOString().split('T')[0];
+ if(newDate === '1970-01-01'){
+  return 'Not yet disbursed'
+ }
+
+return newDate
+}
+
   useEffect(() => {
     //set  active acc
     const acc = allAccounts.filter((acc) => acc.status === "Active");
@@ -116,6 +125,7 @@ export default function LoanHistory() {
                 <Th className={styles.date}>Application Date</Th>
                 <Th className={styles.date}>Application Status</Th>
                 <Th className={styles.date}>Loan Status</Th>
+                <Th className={styles.date}>Disbursed Date</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -139,11 +149,15 @@ export default function LoanHistory() {
                   <Td className={styles.date}>{option.loanApplicationStatus}</Td>
                   <Td
                     className={`${
-                      option.loanStatus=='Disbursed' ? styles.credit : styles.debit
+                     option.loanFinalStatus === 'Closed'? styles.debit : option.loanStatus=='Disbursed' ? styles.credit : styles.debit
                     }`}
                   >
                     <div />
-                    <div>{option.loanStatus}</div>
+                    <div>{option.loanFinalStatus === 'Closed' ? option.loanFinalStatus : option.loanStatus}</div>
+                  </Td>
+                
+                  <Td className={styles.amount}>
+                  {disburseDate(option.disbursementDate)}
                   </Td>
                 </Tr>
               ))}

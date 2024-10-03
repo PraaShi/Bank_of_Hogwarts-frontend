@@ -24,6 +24,16 @@ export function DepositForm({ accStatus, selectedAcc }) {
   //   accStatus === "Active" ? setDisabled(false) : setDisabled(true);
   // });
   const onSubmit = (values) => {
+    if(!selectedAcc?.accountId){
+      toast({
+        title: "Choose an account",
+        // description: "Choose",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+    else{
     const data = {
       accountId: Number(selectedAcc.accountId),
       amount: Number(values.amount),
@@ -38,7 +48,7 @@ export function DepositForm({ accStatus, selectedAcc }) {
         console.log(result);
 
         toast({
-          title: "Withdraw Successful",
+          title: "Deposit Successful",
           // description: "Kindly login to continue.",
           status: "success",
           duration: 5000,
@@ -49,15 +59,17 @@ export function DepositForm({ accStatus, selectedAcc }) {
       })
       .catch((error) => {
         console.log(error);
+        let error1 = error.response.data.toString().split('\r\n')[0]
+        let error2 = error1.split(':')[1]
 
         toast({
-          title: "deposit Unsuccessful",
-          description: "Try after a while.",
+          title: "Deposit Unsuccessful",
+          description: error2,
           status: "error",
           duration: 5000,
           isClosable: true,
         });
-      });
+      });}
   };
   return (
     <div className={styles.container}>

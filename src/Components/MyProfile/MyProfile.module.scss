@@ -72,13 +72,14 @@
 
 .cardFlip {
   perspective: 1000px;
+  height: 50vh;
   .cardFlipInner {
     transition: transform 0.8s;
     transform-style: preserve-3d;
     position: relative;
     height: 100%;
   }
-  height: 50vh;
+
 }
 
 .rotate{

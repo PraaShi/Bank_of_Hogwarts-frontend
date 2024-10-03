@@ -14,6 +14,19 @@ console.log(beneficiary, 'transfer form')
 
 const {setUpdateAccounts} = useContext(AllAccountProvider);
 const toast = useToast();
+
+useEffect(() => {
+  
+    toast({
+      title: "Choose an account",
+      // description: "Choose",
+      status: "info",
+      duration: 5000,
+      isClosable: true,
+    });
+ 
+}, [])
+
 const navigate = useNavigate();
     const initialValues = {
         amount: null,
@@ -29,6 +42,7 @@ const navigate = useNavigate();
       },[beneficiary])
       
       const onSubmit = (values) => {
+        
         if(values.amount < selectedAcc.balance){
     
         
@@ -56,11 +70,12 @@ const navigate = useNavigate();
             navigate("/myprofile");
           })
           .catch((error) => {
-            console.log(error);
+            let error1 = error.response.data.toString().split('\r\n')[0]
+        let error2 = error1.split(':')[1]
     
             toast({
               title: "Transfer Unsuccessful",
-              description: "Try after a while.",
+              description: error2,
               status: "error",
               duration: 5000,
               isClosable: true,

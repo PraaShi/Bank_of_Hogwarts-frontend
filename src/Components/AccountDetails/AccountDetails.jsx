@@ -18,7 +18,6 @@ import axios from "axios";
 function AccountDetails() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const authData = useContext(AuthDataProvider);
-  const [loading, setLoading] = useState(true);
   const [accType, setAccType] = useState([]);
   const [branch, setBranch] = useState([]);
   const {accountDetails,setAccountDetails} = useContext(AccountDataProvider);
@@ -56,7 +55,6 @@ function AccountDetails() {
         .catch((error) => {
         })
         .finally(() => {
-          setLoading(false);
         });
     });
   };
@@ -83,7 +81,6 @@ function AccountDetails() {
         .catch((error) => {
         })
         .finally(() => {
-          setLoading(false);
         });
     });
   };
@@ -101,19 +98,20 @@ function AccountDetails() {
   };
 
   useEffect(() => {
-    setAccountDetails((prev) => ({
-      ...prev,
-      accountId: allAccounts[activeTabIndex]?.accountId,
-    }));
-
+  //   setAccountDetails((prev) => ({
+  //     ...prev,
+  //     accountId: allAccounts[activeTabIndex]?.accountId,
+  //   })
+  
+  // );
+  setAccountDetails(allAccounts[activeTabIndex])
     // console.log(allAccounts[activeTabIndex]?.accountId)
   }, [activeTabIndex, allAccounts]);
 
-  if (loading) {
-    return <Spinner size="xl" />; 
-  }
+
   return (
     <div className={styles.container}>
+      {allAccounts?.length != 0 ? (
       <Tabs
         isFitted
         variant="enclosed"
@@ -212,6 +210,7 @@ function AccountDetails() {
           ))}
         </TabPanels>
       </Tabs>
+      ) : (<div className={styles.noAcc}><h2>No Accounts Found</h2></div>)}
     </div>
   );
 }

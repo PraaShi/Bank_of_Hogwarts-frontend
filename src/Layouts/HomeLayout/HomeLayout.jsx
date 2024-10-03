@@ -19,6 +19,7 @@ function HomeLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   useEffect(() => {
     const data = {
       token: localStorage.getItem("jwtToken"),
@@ -27,6 +28,14 @@ function HomeLayout() {
 
     setAuthData(data);
   }, []);
+  const logOut = (e) => {
+    localStorage.removeItem("jwtToken"); 
+    localStorage.removeItem("customerId");
+    console.log("in logout", authData)
+    setAuthData(null)
+    navigate('/')
+
+}
 
   useEffect(() => {
     if (!localStorage.getItem("jwtToken")) {
@@ -82,7 +91,7 @@ function HomeLayout() {
       >
         <AuthDataProvider.Provider value={authData}>
           <div className={styles.navbar}>
-            <NavBar />
+            <NavBar logOut={logOut} />
           </div>
           <div className={styles.main}>
             <Outlet />

@@ -126,7 +126,7 @@ function History() {
               />
             </div>
             <div className={styles.history}>
-              <TransactionTable detail={filteredTransaction} sliceValue={2} />
+              <TransactionTable detail={filteredTransaction} sliceValue={1} />
               <div className={styles.more}>
                 <Button
                   className={styles.moreBtn}

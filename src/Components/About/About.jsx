@@ -4,6 +4,9 @@ import styles from './About.module.scss'
 function About() {
   return (
     <div className={styles.container}>
+      <div className={styles.blurBall}>
+          <img src="/assests/blurBall.svg" />
+        </div>
         <p><span>About Bank of Hogwarts</span><br/><br/>
             Welcome to <span>Bank of Hogwarts</span>, a premier financial institution dedicated to serving the banking needs of individuals and businesses across the magical and non-magical worlds. Founded on the principles of trust, integrity, and excellence, Bank of Hogwarts has grown to become a leading bank, offering a wide range of services designed to meet the diverse needs of our esteemed customers.
             <br/><br/>

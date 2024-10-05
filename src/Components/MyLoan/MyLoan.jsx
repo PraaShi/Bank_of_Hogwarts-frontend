@@ -8,7 +8,8 @@ import FormikControl from "../../Forms/Formik/FormikControl";
 function MyLoan() {
   return (
     <div className={styles.container}>
-      <p>Have Any Queries ?</p>
+      <p> Availed Loans </p>
+      <div></div>
       <Button><Link to='/loanHistory'>My Loan</Link></Button>
     </div>
   )

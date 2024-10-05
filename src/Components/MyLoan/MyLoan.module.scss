@@ -18,6 +18,12 @@
         font-weight: 300;
         text-align: center;
     }
+    >div:nth-child(2){
+        background-color: var(--grey);
+        height:1px;
+        background: rgb(239,239,239);background: radial-gradient(circle, rgba(239,239,239,1) 0%, rgba(141,140,142,1) 0%, rgba(239,239,239,1) 100%);
+        margin: 0.8vh 1vw;
+    }
 
     >button{
         background-color: #173B1A;

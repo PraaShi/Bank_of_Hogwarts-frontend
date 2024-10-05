@@ -15,6 +15,7 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules"; // Import Autoplay
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -68,8 +69,8 @@ function Home() {
             Digital Users
           </div>
           <div>
-            BankOfHogearts is a all-in-one banking website which make it easy
-            for the customer to make things in seconds
+            {/* BankOfHogearts is a all-in-one banking website which make it easy
+            for the customer to make things in seconds */}
           </div>
           <Button
             onClick={() => {
@@ -99,19 +100,27 @@ function Home() {
           <div>
             {/* <p>2.4%</p> */}
             <p>
-              <Counter endValue={2.4} duration={2000} suffix="%" />
+            <Counter prefix="$" endValue={16.5} duration={2000} suffix="B $" />
             </p>
-            <p>Total Daily Transaction</p>
+            <p>Total Daily Transactions</p>
           </div>
         </div>
       </div>
 
       <div className={styles.phContainer}>
-        <h2>Save When You Send Worldwide</h2>
+        <h2>Meet Money without Borders</h2>
+        <div className={styles.blurBall}>
+          <img src="/assests/blurBall.svg" />
+        </div>
         <div className={styles.faqsContainer}>
           <div className={styles.faqs}>
             <Accordion className={styles.faq}>
-              <AccordionItem className={styles.accordionItem}>
+              <AccordionItem
+                className={styles.accordionItem}
+                sx={{
+                  borderTop: "1px solid #1e7814",
+                }}
+              >
                 <h2>
                   <AccordionButton
                     sx={{
@@ -138,6 +147,10 @@ function Home() {
                     color: "#e8f4e9",
                     padding: "10px 20px",
                     borderBottom: "1px solid #5b7758",
+                    borderTop: "none",
+                    borderBottom: "none",
+                    outline: "none",
+                    border: "none",
                   }}
                   className={styles.accordionPanel}
                 >
@@ -149,7 +162,11 @@ function Home() {
                 </AccordionPanel>
               </AccordionItem>
 
-              <AccordionItem>
+              <AccordionItem
+                sx={{
+                  borderTop: "1px solid #1e7814",
+                }}
+              >
                 <h2>
                   <AccordionButton
                     sx={{
@@ -157,7 +174,6 @@ function Home() {
                       fontSize: "1.2rem",
                       fontWeight: "bold",
                       height: "10vh",
-                      borderTop: "none",
                     }}
                     className={styles.accordionButton}
                   >
@@ -176,7 +192,11 @@ function Home() {
                 </AccordionPanel>
               </AccordionItem>
 
-              <AccordionItem>
+              <AccordionItem
+                sx={{
+                  borderTop: "1px solid #1e7814",
+                }}
+              >
                 <h2>
                   <AccordionButton
                     sx={{
@@ -203,7 +223,12 @@ function Home() {
                 </AccordionPanel>
               </AccordionItem>
 
-              <AccordionItem>
+              <AccordionItem
+                sx={{
+                  borderTop: "1px solid #1e7814",
+                  borderBottom: "1px solid #1e7814",
+                }}
+              >
                 <h2>
                   <AccordionButton
                     sx={{
@@ -211,7 +236,6 @@ function Home() {
                       fontSize: "1.2rem",
                       fontWeight: "bold",
                       height: "10vh",
-                      borderTop: "none",
                     }}
                     className={styles.accordionButton}
                   >
@@ -237,14 +261,16 @@ function Home() {
         </div>
       </div>
 
-
       <div className={styles.outerMostSwiper}>
+        <h2>Make Your Money Move Faster</h2>
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Navigation, Pagination, Autoplay]} // Add Autoplay module
           spaceBetween={50}
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
+          autoplay={{ delay: 2000, disableOnInteraction: false }} // Enable auto-scroll with 3s delay
+          loop={true}
           className={styles.outerSwiper}
         >
           <SwiperSlide className={styles.innerSwiper}>

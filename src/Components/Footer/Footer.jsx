@@ -67,11 +67,11 @@ function Footer() {
           <div>
             <div>
               <img src="/assests/mail.svg" />
-              prashi1207@outlook.com
+              bankofhogwarts@gmail.com
             </div>
             <div>
               <img src="/assests/loc.svg" />
-              Chennai,Tamil Nadu
+              Hogwarts
             </div>
             <div>
               <img src="/assests/ph.svg" />

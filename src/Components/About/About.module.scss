@@ -11,6 +11,7 @@
     text-align: justify;
     line-height: 27px;
     padding:10vh 0;
+    position:relative;
     span:nth-child(1){
         font-weight: 800;
         font-size: 25px;
@@ -19,4 +20,14 @@
 
 .topic{
     font-weight: 700;
+}
+
+.blurBall{
+    top: 0;
+    left:-200px;
+    position:absolute;
+    >img{
+        width:500px;
+        opacity:0.3;
+    }
 }

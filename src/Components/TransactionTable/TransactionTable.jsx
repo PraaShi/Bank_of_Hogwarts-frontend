@@ -10,23 +10,21 @@ import {
   Th,
   Thead,
   Tr,
-  Tooltip, 
+  Tooltip,
 } from "@chakra-ui/react";
 import { useState, createContext, useContext } from "react";
 import { DetailContext } from "../History/History";
 import { AccountDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 
 import jsPDF from "jspdf"; // Import jsPDF
-import 'jspdf-autotable';
-import logo from '/assests/logoName.png'
+import "jspdf-autotable";
+import logo from "/assests/logoName.png";
 
-function TransactionTable({sliceValue, transactionDetail}) {
+function TransactionTable({ sliceValue, transactionDetail }) {
   const detail = useContext(DetailContext) || transactionDetail;
-  const {accountDetails} = useContext(AccountDataProvider)
-  const slice  = sliceValue ? sliceValue : detail.length;
-  console.log(accountDetails, 'transaction table')
+  const { accountDetails } = useContext(AccountDataProvider);
+  const slice = sliceValue ? sliceValue : detail.length;
 
-  // Function to generate PDF
   const generatePDF = () => {
     const doc = new jsPDF();
   
@@ -69,58 +67,60 @@ function TransactionTable({sliceValue, transactionDetail}) {
 
   return (
     <>
-    { detail?.length != 0 ? (
-       <>
-       {/* PDF Download Button */}
-       <Button onClick={generatePDF} colorScheme="blue" mb={1} className={styles.download}>
-        <img src="/assests/pdf.svg" />
-       </Button>
-    <TableContainer className={styles.table}>
-
-      <Table variant="simple">
-        <TableCaption></TableCaption>
-        <Thead>
-          <Tr>
-            <Th>Type</Th>
-            <Th className={styles.amount}>Amount</Th>
-            <Th className={styles.description}>Discription</Th>
-            <Th className={styles.date}>Date</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {detail.slice(0,slice).map((option, index) => (
-            <Tr key={index}>
-              <Td
-                className={`${
-                  option.credit ? styles.credit : styles.debit
-                }`}
-              >
-                <div />
-                <div>{option.credit ? "Credit" : "Debit"}</div>
-              </Td>
-              <Td className={styles.amount}>{option.credit ? option.credit : option.debit}</Td>
-              <Td className={styles.description}> <Tooltip
-                  label={option.description}
-                  aria-label="Full description"
-                  hasArrow
-                  placement="top"
-                >
-                  <span>
-                    {option.description.split(" ").length > 4
-                      ? option.description.split(" ").slice(0, 4).join(" ") + "..."
-                      : option.description}
-                  </span>
-                </Tooltip></Td>
-              <Td className={styles.date}>{option.transactionDate}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+      {detail?.length !== 0 ? (
+        <>
+          {/* PDF Download Button */}
+          <Button
+            onClick={generatePDF}
+            colorScheme="blue"
+            mb={1}
+            className={styles.download}
+          >
+            <img src="/assests/pdf.svg" />
+          </Button>
+          <TableContainer className={styles.table}>
+            <Table variant="simple">
+              <TableCaption></TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>Type</Th>
+                  <Th className={styles.amount}>Amount</Th>
+                  <Th className={styles.description}>Description</Th>
+                  <Th className={styles.date}>Date</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {detail.slice(0, slice).map((option, index) => (
+                  <Tr key={index}>
+                    <Td
+                      className={`${
+                        option.credit ? styles.credit : styles.debit
+                      }`}
+                    >
+                      <div />
+                      <div>{option.credit ? "Credit" : "Debit"}</div>
+                    </Td>
+                    <Td className={styles.amount}>
+                      {option.credit ? option.credit : option.debit}
+                    </Td>
+                    <Td className={styles.description}>
+                      <Tooltip label={option.description}>
+                        {option.description}
+                      </Tooltip>
+                    </Td>
+                    <Td className={styles.date}>
+                      {option.transactionDate}
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        <h2 className={styles.empty}>No Transactions Found.</h2>
+      )}
     </>
-    ) : (<div className={styles.noAcc}><h2>Either Account is Closed or No Transaction Found</h2></div>)}
-    </>
-        
   );
 }
 

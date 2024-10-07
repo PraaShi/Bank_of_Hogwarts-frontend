@@ -2,6 +2,7 @@
 
 .table{
     margin-top: 1.5vh;
+  
    @include small-break{
     margin-top: 13vh;
     overflow-y: auto;
@@ -85,11 +86,14 @@
 
 .download{
     width:100%;
-    margin-right: auto;
-    background-color: white !important;
+    margin-left: auto;
+    background: transparent !important;
+    // background-color: antiquewhite;
+    z-index:2 !important;
+    // display: none !important;
 
     >img{
-        width:30px;
+        width:25px;
         margin-left: auto;
     }
 }

@@ -23,6 +23,7 @@ import Filters from "../Filters/Filters";
 import { AccountDataProvider, AllAccountProvider, AuthDataProvider } from "../../Layouts/HomeLayout/HomeLayout";
 import axios from "axios";
 import { useNavigation } from "react-router-dom";
+import History from "../History/History";
 
 function Transactions() {
   const toast = useToast()
@@ -36,9 +37,15 @@ function Transactions() {
   const [disabled, setDisabled] = useState(true)
   const [allBeneficiaries, setAllBeneficiaries] = useState([])
   const [transaction, setTransaction] = useState([])
+  const {accountDetails,setAccountDetails} = useContext(AccountDataProvider);
   const authData = useContext(AuthDataProvider);
   const {allAccounts} = useContext(AllAccountProvider);
 
+
+  useEffect(() => {
+    setAccountDetails(null)
+  }, [])
+  
   
 
   useEffect(() => {
@@ -192,6 +199,7 @@ function Transactions() {
                   (acc) => acc.accountId === values.account
                 );
                 setSelectedAcc(account);
+                setAccountDetails(account)
               }, [values.account]);
               return (
                 <Form className={styles.form}>
@@ -277,8 +285,12 @@ function Transactions() {
               </TabPanel>
               <TabPanel className={styles.tabPanel}>
                 <div className={styles.history}>
-                  <Filters />
+                  {/* <Filters />
+                  <div  className={styles.list}>
                   <TransactionTable transactionDetail = {transaction}/>
+                  </div> */}
+
+                  <History />
                 </div>
               </TabPanel>
             </TabPanels>

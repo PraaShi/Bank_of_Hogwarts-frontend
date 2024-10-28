@@ -16,55 +16,52 @@ import {
   Th,
   Thead,
   Tr,
-  Tooltip, 
+  useDisclosure,
+  useToast
+
 } from "@chakra-ui/react";
 import { formatDate } from "../../Lib/Predifined";
 import axios from "axios";
+import LoanRepayment from "../LoanRepayment/LoanRepayment"; 
 
 export default function LoanHistory() {
+  const toast = useToast();
   const authData = useContext(AuthDataProvider);
   const { allAccounts } = useContext(AllAccountProvider);
   const [activeAccounts, setActiveAccounts] = useState();
   const [selectedAcc, setSelectedAcc] = useState({});
   const [dropDownOptions, setDropDownOptions] = useState([]);
   const [LoanHistory, setLoanHistory] = useState([]);
-  const initialValue = {
-    account: "",
+  const [selectedLoan, setSelectedLoan] = useState(null);
+  const initialValue = { account: "" };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const disburseDate = (date) => {
+    let newDate = new Date(date).toISOString().split("T")[0];
+    if (newDate === "1970-01-01") {
+      return "Not yet disbursed";
+    }
+    return newDate;
   };
 
-const disburseDate = (date) => {
- let newDate  =  new Date(date).toISOString().split('T')[0];
- if(newDate === '1970-01-01'){
-  return 'Not yet disbursed'
- }
-
-return newDate
-}
-
   useEffect(() => {
-    //set  active acc
     const acc = allAccounts.filter((acc) => acc.status === "Active");
     setActiveAccounts(acc);
-    console.log(acc);
   }, [allAccounts]);
 
   useEffect(() => {
-    //set Dropdown Options
     if (activeAccounts && activeAccounts.length > 0) {
       const options = activeAccounts.map((account, index) => ({
-        label: `Account ${index + 1}`, // You can customize the label as needed
-        value: account.accountId, // Use the transactionId or any other identifier as the value
+        label: `Account ${index + 1}`,
+        value: account.accountId,
       }));
-
       setDropDownOptions(options);
-      console.log(options);
     }
   }, [activeAccounts]);
 
   useEffect(() => {
     if (selectedAcc?.accountId) {
       const url = `https://localhost:7135/api/accountActions/${selectedAcc?.accountId}/loan-history`;
-      console.log(url);
       axios
         .get(url, {
           headers: {
@@ -73,18 +70,50 @@ return newDate
         })
         .then((result) => {
           setLoanHistory(result.data.$values);
-          console.log(result.data.$values, "see");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           setLoanHistory([]);
-        })
-        .finally(() => {});
+        });
     }
   }, [selectedAcc]);
 
+  const handleRepayButtonClick = (loan) => {
+    setSelectedLoan(loan);
+    onOpen();
+  };
+
+  const handleRepaymentSubmit = (values) => {
+    const { amount, pin, remarks } = values;
+    const data = { loanId: selectedLoan.loanId, amount, pin, remarks };
+    const url = `https://localhost:7135/api/loanRepay/repay-loan`;
+    axios
+      .post(url, data)
+      .then(() => {
+        toast({
+          title: "Paid Successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        console.log("hello")
+        console.log("this",error.response.data.message)
+        // setLoanHistory([]);
+        toast({       //toast
+          title: "Payment Failed",
+          description: error.response.data.message,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+      });
+    onClose();
+  };
+
   return (
     <div className={styles.container}>
+      {/* Filter Section */}
       <div className={styles.filter}>
         <Formik initialValues={initialValue}>
           {({ values }) => {
@@ -112,6 +141,8 @@ return newDate
         <div>Acc.No : {selectedAcc?.accountNumber}</div>
         <div>Bal : {selectedAcc?.balance}</div>
       </div>
+
+      {/* Loan History Table */}
       <div>
         <TableContainer className={styles.table}>
           <Table variant="simple">
@@ -126,38 +157,39 @@ return newDate
                 <Th className={styles.date}>Application Status</Th>
                 <Th className={styles.date}>Loan Status</Th>
                 <Th className={styles.date}>Disbursed Date</Th>
+                <Th className={styles.date}>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
               {LoanHistory.map((option, index) => (
                 <Tr key={index}>
-                  <Td className={styles.amount}>
-                    {option.loanType}
-                  </Td>
-                  <Td className={styles.amount}>
-                    {option.loanAmount}
-                  </Td>
-                  <Td className={styles.amount}>
-                    {option.interestRate}
-                  </Td>
-                  <Td className={styles.amount}>
-                    {option.tenure}
-                  </Td>
-                  <Td className={styles.amount}>
-                    {formatDate(option.applicationDate)}
-                  </Td>
+                  <Td className={styles.amount}>{option.loanType}</Td>
+                  <Td className={styles.amount}>{option.loanAmount}</Td>
+                  <Td className={styles.amount}>{option.interestRate}</Td>
+                  <Td className={styles.amount}>{option.tenure}</Td>
+                  <Td className={styles.amount}>{formatDate(option.applicationDate)}</Td>
                   <Td className={styles.date}>{option.loanApplicationStatus}</Td>
                   <Td
                     className={`${
-                     option.loanFinalStatus === 'Closed'? styles.debit : option.loanStatus=='Disbursed' ? styles.credit : styles.debit
+                      option.loanFinalStatus === "Closed"
+                        ? styles.debit
+                        : option.loanStatus === "Disbursed"
+                        ? styles.credit
+                        : styles.debit
                     }`}
                   >
                     <div />
-                    <div>{option.loanFinalStatus === 'Closed' ? option.loanFinalStatus : option.loanStatus}</div>
+                    <div>
+                      {option.loanFinalStatus === "Closed"
+                        ? option.loanFinalStatus
+                        : option.loanStatus}
+                    </div>
                   </Td>
-                
-                  <Td className={styles.amount}>
-                  {disburseDate(option.disbursementDate)}
+                  <Td className={styles.amount}>{disburseDate(option.disbursementDate)}</Td>
+                  <Td>
+                    <Button size="sm" colorScheme="green" onClick={() => handleRepayButtonClick(option)}>
+                      Repay
+                    </Button>
                   </Td>
                 </Tr>
               ))}
@@ -165,6 +197,14 @@ return newDate
           </Table>
         </TableContainer>
       </div>
+
+      {/* Loan Repayment Modal */}
+      <LoanRepayment
+        isOpen={isOpen}
+        onClose={onClose}
+        selectedLoan={selectedLoan}
+        handleRepaymentSubmit={handleRepaymentSubmit}
+      />
     </div>
   );
 }

@@ -25,45 +25,99 @@ function TransactionTable({ sliceValue, transactionDetail }) {
   const { accountDetails } = useContext(AccountDataProvider);
   const slice = sliceValue ? sliceValue : detail.length;
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-  
-    doc.text('Transaction Report', 14, 36);
-    doc.setFontSize(12);
-  
-    // Table headers and body
-    const headers = [['Type', 'Amount', 'Description', 'Date']];
-    const rows = detail.map((transaction) => [
-      transaction.credit ? "Credit" : "Debit",
-      transaction.credit ? transaction.credit : transaction.debit,
-      transaction.description.length > 15
-        ? transaction.description.slice(0, 15) + "..."
-        : transaction.description,
-      transaction.transactionDate,
-    ]);
-  
-    // Use autoTable to generate table and add border to each page
-    doc.autoTable({
-      startY: 60, // Position table after the header for the first page
-      head: headers,
-      body: rows,
-      theme: 'grid', // Table style: 'striped', 'grid', 'plain'
-      styles: { 
-        fontSize: 10, 
-        cellPadding: 3,
-        lineColor: [44, 62, 80],
-        lineWidth: 0.2
-      },
-      headStyles: { 
-        fillColor: [44, 62, 80], // Dark header background
-        textColor: [255, 255, 255], // White header text
-        fontStyle: 'bold'
-      },
-    });
-  
-    // Save the PDF
-    doc.save('transactions.pdf');
-  };
+  // Function to generate PDF
+const generatePDF = () => {
+  const doc = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4",
+    compress: true, 
+  });
+
+  doc.setFillColor("#cdd6d5"); 
+  doc.rect(10, 10, 190, 30, "F"); 
+
+  doc.setFontSize(20);
+  doc.setTextColor(255, 255, 255); 
+  doc.setFont("helvetica", "bold");
+  doc.text("Bank of Hogwarts", 14, 28);
+
+  doc.addImage(logo, "PNG", 160, 12, 30, 25, undefined, "FAST"); // Adjust logo size and position with compression
+
+  doc.setFontSize(12);
+  doc.setTextColor(40); // Dark gray text color
+  const accountData = [
+    ["Account Number", accountDetails?.accountNumber],
+    ["Balance", accountDetails?.balance],
+    // ["Created At", accountDetails?.createdAt],
+    ["CIBIL Score", accountDetails?.cibilScore],
+    ["Downloaded Date",new Date()]
+  ];
+
+  doc.autoTable({
+    startY: 55,
+    body: accountData, 
+    theme: "plain", 
+    styles: {
+      cellPadding: 5,
+      fontSize: 11,
+      textColor: [44, 62, 80], 
+    },
+    margin: { left: 60 },
+  });
+
+  doc.setLineWidth(0.5);
+  doc.line(
+    14,
+    doc.lastAutoTable.finalY + 5,
+    196,
+    doc.lastAutoTable.finalY + 5
+  ); 
+
+  const transactionTableStartY = doc.lastAutoTable.finalY + 10; 
+
+  const headers = [["Type", "Amount", "Description", "Date"]];
+  const rows = detail.map((transaction) => [
+    transaction.credit ? "Credit" : "Debit",
+    transaction.credit ? transaction.credit : transaction.debit,
+    transaction.description,
+    transaction.transactionDate,
+  ]);
+
+  doc.autoTable({
+    startY: transactionTableStartY, 
+    head: headers,
+    body: rows, 
+    theme: "grid",
+    styles: {
+      fontSize: 9,
+      cellPadding: 2,
+      lineColor: [44, 62, 80],
+      lineWidth: 0.1,
+    },
+    headStyles: {
+      fillColor: [44, 62, 80], 
+      textColor: [255, 255, 255], 
+      fontStyle: "bold",
+    },
+    didDrawPage: function (data) {
+      doc.setDrawColor(0);
+      doc.rect(10, 10, 190, 280);
+    },
+  });
+
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(10);
+    doc.setTextColor(150);
+    doc.text(`Page ${i} of ${pageCount}`, 180, 290); 
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 290); 
+  }
+
+  doc.save("transactions.pdf");
+};
+
 
   return (
     <>

@@ -1,0 +1,39 @@
+.modalBody {
+    display: flex;
+  }
+  
+  .leftSection {
+    flex: 1;
+    padding: 0 20px;
+  }
+  
+  .divider {
+    width: 1px;
+    background-color: #ddd;
+    margin: 0 15px;
+  }
+  
+  .rightSection {
+    flex: 1;
+    padding: 0 20px;
+    overflow-y: auto;
+  }
+  
+  .tableHeader {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .tableHeaderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pdfIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  
